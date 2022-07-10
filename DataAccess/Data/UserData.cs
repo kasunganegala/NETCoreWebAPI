@@ -1,0 +1,59 @@
+﻿using Dapper;
+using DataAccess.DBAccess;
+using DataAccess.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccess.Data
+{
+    public class UserData : IUserData
+    {
+        private readonly ISqlDataAccess _db;
+
+        public UserData(ISqlDataAccess db)
+        {
+            _db = db;
+        }
+
+        public Task<IEnumerable<UserModel>> GetUsers() =>
+            _db.LoadData<UserModel, dynamic>("dbo.spUsers_GetAll", new { });
+
+        public async Task<UserModel?> GetUser(int id)
+        {
+            var results = await _db.LoadData<UserModel, dynamic>(
+                "dbo.spUsers_Get",
+                new { Id = id });
+            return results.FirstOrDefault();
+        }
+
+        public Task InsertUser(UserModel user) =>
+            _db.SaveData("dbo.spUser_Insert", new { user.FirstName, user.LastName });
+
+        public Task UpdateUser(UserModel user) =>
+            _db.SaveData("dbo.spUser_Update", user);
+
+        public Task DeleteUser(int id) =>
+            _db.SaveData("dbo.spUser_Delete", new { Id = id });
+
+        public async Task<UserModel?> GetUser(string email, string password)
+        {
+            var results = await _db.LoadData<UserModel, dynamic>(
+                  "dbo.spGet_User_Login",
+                  new { Email = email, Password = password});
+
+            return results.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<RolesModel>?> GetUserRoles(int id)
+        {
+            var results = await _db.LoadData<RolesModel, dynamic>(
+                  "dbo.spGet_User_Roles",
+                  new { Id = id });
+
+            return results;
+        }
+    }
+}
