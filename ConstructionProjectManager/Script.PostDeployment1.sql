@@ -25,7 +25,14 @@ END
 
 IF NOT EXISTS(SELECT 1 FROM dbo.Users)
 BEGIN
-INSERT INTO Users([UserName],[FirstName],[LastName],[Email],[Password],[UserRoleId],[IsDeactivated]) VALUES 
-    ('kasunganegala','Kasun','Ganegala','a@a.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',1,0)
-   ,('malithchanaka','Malith','Chanaka','b@b.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',2,0)
+INSERT INTO Users([UserName],[FirstName],[LastName],[Email],[Password],[UserRoleId],[IsDeactivated], [CustomerId]) VALUES 
+    ('kasunganegala','Kasun','Ganegala','a@a.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',1,0, null)
+   ,('malithchanaka','Malith','Chanaka','b@b.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',2,0, 1)
+END
+
+IF NOT EXISTS(SELECT 1 FROM dbo.Customers)
+BEGIN
+INSERT INTO Customers([Name],[Description]) VALUES 
+    ('Priyadarshana Importers','Paint importing company')
+   ,('Multi Kitchen','Kitchen equipment importers and distributors')
 END

@@ -71,6 +71,12 @@
     <Build Include="dbo\StoredProcedures\Authentication\spGet_User_Login.sql" />
     <Build Include="dbo\Tables\UserRoles.sql" />
     <Build Include="dbo\StoredProcedures\Authentication\spGet_User_Roles.sql" />
+    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\Tenders.sql" />
+    <Build Include="dbo\Tables\TenderTasks.sql" />
+    <Build Include="dbo\Tables\Bids.sql" />
+    <Build Include="dbo\Tables\BidTasks.sql" />
+    <Build Include="dbo\Tables\BidResourcesCost.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

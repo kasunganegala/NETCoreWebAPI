@@ -7,9 +7,11 @@
     [Email] NVARCHAR(50) NOT NULL, 
     [Password] NVARCHAR(100) NOT NULL,
     [UserRoleId] INT NOT NULL,
+    [CustomerId] INT NULL,
     [IsDeactivated] BIT NOT NULL DEFAULT 0, 
     [CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 
     [LastModifiedDateTime] DATETIME NULL, 
 
-    CONSTRAINT [FK_User_UserRoles] FOREIGN KEY ([UserRoleId]) REFERENCES [UserRoles]([Id])
+    CONSTRAINT [FK_User_UserRoles] FOREIGN KEY ([UserRoleId]) REFERENCES [UserRoles]([Id]),
+    CONSTRAINT [FK_User_Cstomers] FOREIGN KEY ([CustomerId]) REFERENCES [Customers]([Id])
 )
