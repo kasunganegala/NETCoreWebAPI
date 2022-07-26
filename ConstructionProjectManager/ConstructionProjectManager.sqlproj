@@ -60,6 +60,7 @@
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="dbo\StoredProcedures\Authentication" />
+    <Folder Include="dbo\StoredProcedures\Tender" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
@@ -77,6 +78,9 @@
     <Build Include="dbo\Tables\Bids.sql" />
     <Build Include="dbo\Tables\BidTasks.sql" />
     <Build Include="dbo\Tables\BidResourcesCost.sql" />
+    <Build Include="dbo\Tables\ProjectType.sql" />
+    <Build Include="dbo\Tables\TenderType.sql" />
+    <Build Include="dbo\StoredProcedures\Tender\spTender_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

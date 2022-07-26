@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spTender_Insert]
+﻿CREATE PROCEDURE [dbo].[spUser_Insert]
 	@FirstName nvarchar(50),
 	@LastName nvarchar(50)
 AS

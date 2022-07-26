@@ -17,7 +17,7 @@ namespace DataAccess.Models
         public int CustomerId { get; set; }
         public string Status { get; set; }
         public string? Comment { get; set; }
-        public int? CreatedByUserId { get; set; }
+        public string CreatedByUsername { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime? LastModifiedDateTime { get; set; }
     }

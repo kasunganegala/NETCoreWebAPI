@@ -8,10 +8,10 @@
 	[CustomerId] INT NOT NULL,
 	[Status] NVARCHAR(4) DEFAULT 'Open' NOT NULL, 
 	[Comment] NVARCHAR(500) NULL DEFAULT '', 
-	[CreatedByUserId] INT NULL,
+	[CreatedByUsername] NVARCHAR(20) NULL,
 	[CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 
     [LastModifiedDateTime] DATETIME NULL,
 
 	CONSTRAINT [FK_Tenders_Cstomers] FOREIGN KEY ([CustomerId]) REFERENCES [Customers]([Id]),
-	CONSTRAINT [FK_Tenders_Users] FOREIGN KEY ([CreatedByUserId]) REFERENCES [Users]([Id])
+	CONSTRAINT [FK_Tenders_Users] FOREIGN KEY ([CreatedByUsername]) REFERENCES [Users]([UserName])
 )

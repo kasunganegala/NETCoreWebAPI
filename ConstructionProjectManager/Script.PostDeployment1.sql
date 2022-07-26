@@ -11,7 +11,7 @@ Post-Deployment Script Template
 */
 
 
-
+GO
 IF NOT EXISTS(SELECT 1 FROM UserRoles)
 BEGIN
     INSERT INTO UserRoles(RoleName) VALUES 
@@ -23,6 +23,15 @@ BEGIN
     ,('SubContractor')
 END
 
+GO
+IF NOT EXISTS(SELECT 1 FROM dbo.Customers)
+BEGIN
+INSERT INTO Customers([Name],[Description]) VALUES 
+    ('Priyadarshana Importers','Paint importing company')
+   ,('Multi Kitchen','Kitchen equipment importers and distributors')
+END
+
+GO
 IF NOT EXISTS(SELECT 1 FROM dbo.Users)
 BEGIN
 INSERT INTO Users([UserName],[FirstName],[LastName],[Email],[Password],[UserRoleId],[IsDeactivated], [CustomerId]) VALUES 
@@ -30,9 +39,18 @@ INSERT INTO Users([UserName],[FirstName],[LastName],[Email],[Password],[UserRole
    ,('malithchanaka','Malith','Chanaka','b@b.com','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',2,0, 1)
 END
 
-IF NOT EXISTS(SELECT 1 FROM dbo.Customers)
+GO
+IF NOT EXISTS(SELECT 1 FROM dbo.ProjectType)
 BEGIN
-INSERT INTO Customers([Name],[Description]) VALUES 
-    ('Priyadarshana Importers','Paint importing company')
-   ,('Multi Kitchen','Kitchen equipment importers and distributors')
+INSERT INTO ProjectType([Name],[Description]) VALUES 
+    (N'Time & Meterial','Cost is done as per the spent time and resources')
+   ,(N'Fixed Budget','Cost is done as per the pre agreed costing agreement')
+END
+
+GO
+IF NOT EXISTS(SELECT 1 FROM dbo.TenderType)
+BEGIN
+INSERT INTO TenderType([Name],[Description]) VALUES 
+    ('Type-A Construction Companies','Type-A Construction Companies')
+   ,('All','All Construction Companies')
 END

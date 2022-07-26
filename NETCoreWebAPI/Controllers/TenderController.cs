@@ -24,6 +24,8 @@ using System.Security.Cryptography;
 using DataAccess.Models.Tender;
 using DataAccess.Models.Authentication;
 using DataAccess.Models;
+using NETCoreWebAPI.Validations;
+using DataAccess.Models.Common;
 
 namespace NETCoreWebAPI.Controllers
 {
@@ -51,79 +53,14 @@ namespace NETCoreWebAPI.Controllers
         {
             try
             {
+                List<Error> Errors = TenderValidation.NewTenderValidation(model);
+                if (Errors.Count > 0)
+                    return Ok(new { 
+                        Errors = Errors,
+                        Status = "Validation Errors"
+                    });
+
                 return Ok();
-                //if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
-                //{
-                //    return Ok(new
-                //    {
-                //        title = "Error",
-                //        errors = "Email address and password required",
-                //        status = 401
-                //    });
-                //}
-
-                //var passwordHash = "";
-                //using (var sha256 = SHA256.Create())
-                //{
-                //    var varhashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
-                //    passwordHash = BitConverter.ToString(varhashedBytes).Replace("-", "").ToLower();
-                //}
-
-                //UserModel user = await _userData.GetUser(model.Email, passwordHash);
-
-                //if (user is null)
-                //{
-                //    return Ok(new
-                //    {
-                //        title = "Unauthorized",
-                //        errors = "Invalid email and/or password",
-                //        status = 401
-                //    });
-                //}
-                //else if (user.IsDeactivated)
-                //{
-                //    return Ok(new
-                //    {
-                //        title = "Unauthorized",
-                //        errors = "Account Deactivated",
-                //        status = 401
-                //    });
-                //}
-
-                //IEnumerable<RolesModel> roles = await _userData.GetUserRoles(user.Id);
-
-                //var authClaims = new List<Claim>
-                //{
-                //    new Claim(ClaimTypes.Name, user.UserName),
-                //    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                //};
-
-                //foreach (RolesModel userRole in roles)
-                //{
-                //    authClaims.Add(new Claim(ClaimTypes.Role, userRole.RoleName));
-                //}
-
-                //var authSiginKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
-                //var token = new JwtSecurityToken(
-                //        issuer: _configuration["JWT:ValidIssuer"],
-                //        audience: _configuration["JWT:ValidAudience"],
-                //        expires: DateTime.Now.AddDays(1),
-                //        claims: authClaims,
-                //        signingCredentials: new SigningCredentials(authSiginKey, SecurityAlgorithms.HmacSha256Signature)
-                //    );
-
-                //return Ok(new
-                //{
-                //    errors = "",
-                //    token = new JwtSecurityTokenHandler().WriteToken(token),
-                //    validTo = token.ValidTo.ToString("yyyy-MM-ddThh:mm:ss"),
-                //    title = "Authorized",
-                //    status = 200,
-                //    roles = roles.ToList().Select(s => s.RoleName),
-                //    name = string.Concat(user.FirstName, " ", user.LastName),
-                //    email = user.Email,
-                //    username = user.UserName
-                //});
             }
             catch (Exception ex)
             {
