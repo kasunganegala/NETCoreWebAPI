@@ -26,6 +26,7 @@ using DataAccess.Models.Authentication;
 using DataAccess.Models;
 using NETCoreWebAPI.Validations;
 using DataAccess.Models.Common;
+using NETCoreWebAPI.BusinessRules.Tender;
 
 namespace NETCoreWebAPI.Controllers
 {
@@ -36,15 +37,17 @@ namespace NETCoreWebAPI.Controllers
     {
 
         private readonly IConfiguration _configuration;
-        private readonly IUserData _userData;
+        private readonly ITenderData _tenderData;
+        
         private static MailMessage _global = new MailMessage();
 
         public TenderController(
             IConfiguration configuration,
-            IUserData userData)
+            ITenderData tenderData)
         {
             _configuration = configuration;
-            _userData = userData;
+            _tenderData = tenderData;
+
         }
 
         [HttpPost]
@@ -54,11 +57,16 @@ namespace NETCoreWebAPI.Controllers
             try
             {
                 List<Error> Errors = TenderValidation.NewTenderValidation(model);
+
                 if (Errors.Count > 0)
                     return Ok(new { 
                         Errors = Errors,
                         Status = "Validation Errors"
                     });
+
+                TenderDBModel tender = TenderBusinessRules.GenerateTenderModel(model);
+
+                await _tenderData.InsertNewTender(tender);
 
                 return Ok();
             }

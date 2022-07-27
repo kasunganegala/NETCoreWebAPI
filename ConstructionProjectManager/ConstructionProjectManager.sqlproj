@@ -61,6 +61,7 @@
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="dbo\StoredProcedures\Authentication" />
     <Folder Include="dbo\StoredProcedures\Tender" />
+    <Folder Include="dbo\Udt" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
@@ -81,6 +82,7 @@
     <Build Include="dbo\Tables\ProjectType.sql" />
     <Build Include="dbo\Tables\TenderType.sql" />
     <Build Include="dbo\StoredProcedures\Tender\spTender_Insert.sql" />
+    <Build Include="dbo\Udt\udtTenderTasksType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

@@ -4,6 +4,6 @@ namespace DataAccess.Data
 {
     public interface ITenderData
     {
-        Task InsertNewTender(UserModel user);
+        Task InsertNewTender(TenderDBModel tender);
     }
 }
