@@ -62,6 +62,8 @@ BEGIN TRY
 				,IIF([CreatedByUsername] IS NULL, '', [CreatedByUsername])
 			FROM @TenderTasks
 
+			SELECT @TenderId 
+
 	COMMIT TRAN -- Transaction Success!
 END TRY
 	BEGIN CATCH

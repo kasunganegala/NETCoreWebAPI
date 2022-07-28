@@ -29,5 +29,14 @@ namespace DataAccess.DBAccess
             await connection.ExecuteAsync(storedProcedure, parameters,
                 commandType: CommandType.StoredProcedure);
         }
+
+        public Task<T> SaveData<T, U>(string storedProcedure, U parameters, string connectionId = "Default")
+        {
+            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
+
+            T identity = connection.ExecuteScalar<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+
+            return Task.FromResult(identity);
+        }
     }
 }

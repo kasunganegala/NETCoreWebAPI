@@ -59,16 +59,25 @@ namespace NETCoreWebAPI.Controllers
                 List<Error> Errors = TenderValidation.NewTenderValidation(model);
 
                 if (Errors.Count > 0)
-                    return Ok(new { 
+                {
+                    return Ok(new
+                    {
                         Errors = Errors,
-                        Status = "Validation Errors"
+                        Status = "Validation Errors",
+                        TenderId = 0
                     });
+                }
 
                 TenderDBModel tender = TenderBusinessRules.GenerateTenderModel(model);
 
-                await _tenderData.InsertNewTender(tender);
+                int newTenderId = await _tenderData.InsertNewTender(tender);
 
-                return Ok();
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    TenderId = newTenderId
+                });
             }
             catch (Exception ex)
             {

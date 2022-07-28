@@ -19,7 +19,7 @@ namespace DataAccess.Data
             _db = db;
         }
 
-        public Task InsertNewTender(TenderDBModel tender)
+        public Task<int> InsertNewTender(TenderDBModel tender)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Id");
@@ -59,7 +59,7 @@ namespace DataAccess.Data
             param.Add("@CreatedDateTime", tender.CreatedDateTime);
             param.Add("@LastModifiedDateTime", tender.LastModifiedDateTime);
 
-            var result = _db.SaveData("dbo.spTender_Insert", param);
+            var result = _db.SaveData<int, DynamicParameters>("dbo.spTender_Insert", param);
 
             return result;
         }
