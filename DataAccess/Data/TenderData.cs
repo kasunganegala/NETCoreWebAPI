@@ -63,7 +63,35 @@ namespace DataAccess.Data
 
             return result;
         }
-        
 
+        public async Task<TenderDBModel?> GetTender(int id)
+        {
+            var results = await _db.LoadData<TenderDBModel, dynamic>(
+                "dbo.spTender_Get",
+                new { Id = id });
+
+            return results.FirstOrDefault();
+        }
+
+        public async Task<List<TenderTasksDBModel>?> GetTenderTasks(int id)
+        {
+            var results = await _db.LoadData<TenderTasksDBModel, dynamic>(
+                "dbo.spTenderTasks_Get",
+                new { Id = id });
+
+            var tenderTaskData = results.ToList();
+
+            return tenderTaskData;
+        }
+
+        public async Task<List<TenderDBModel>?> GetTenders()
+        {
+            var results = await _db.LoadData<TenderDBModel, dynamic>(
+                "dbo.spTenders_Get", new { });
+
+            var tenderTaskData = results.ToList();
+
+            return tenderTaskData;
+        }
     }
 }

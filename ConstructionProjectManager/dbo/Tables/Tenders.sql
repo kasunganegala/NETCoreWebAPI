@@ -7,7 +7,7 @@
 	[StartDateTime] DATETIME NOT NULL, 
 	[EndDateTime] DATETIME NOT NULL, 
 	[CustomerId] INT NOT NULL,
-	[Status] NVARCHAR(4) DEFAULT 'Open' NOT NULL, 
+	[Status] NVARCHAR(20) DEFAULT 'Open' NOT NULL, 
 	[ProjectType] INT NOT NULL ,
 	[Comment] NVARCHAR(500) NULL DEFAULT '', 
 	[CreatedByUsername] NVARCHAR(20) NULL,

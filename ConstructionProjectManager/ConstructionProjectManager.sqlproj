@@ -83,6 +83,9 @@
     <Build Include="dbo\Tables\TenderType.sql" />
     <Build Include="dbo\StoredProcedures\Tender\spTender_Insert.sql" />
     <Build Include="dbo\Udt\udtTenderTasksType.sql" />
+    <Build Include="dbo\StoredProcedures\Tender\spTender_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Tender\spTenderTasks_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Tender\spTenders_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

@@ -85,5 +85,49 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Tender(int id)
+        {
+            try
+            {
+                TenderDBModel tender = await _tenderData.GetTender(id);
+                List<TenderTasksDBModel> tenderTasks = await _tenderData.GetTenderTasks(id);
+
+                tender.TenderTasks = tenderTasks;
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Tender = tender
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Tenders()
+        {
+            try
+            {
+                List<TenderDBModel> tenders = await _tenderData.GetTenders();
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Tenders = tenders
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
     }
 }
