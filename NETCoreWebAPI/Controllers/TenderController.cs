@@ -27,12 +27,17 @@ using DataAccess.Models;
 using NETCoreWebAPI.Validations;
 using DataAccess.Models.Common;
 using NETCoreWebAPI.BusinessRules.Tender;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace NETCoreWebAPI.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    
     public class TenderController : ControllerBase
     {
 
@@ -87,13 +92,24 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(Roles = "ProjectManager,Client")]
         public async Task<IActionResult> Tender(int id)
         {
             try
             {
                 TenderDBModel tender = await _tenderData.GetTender(id);
-                List<TenderTasksDBModel> tenderTasks = await _tenderData.GetTenderTasks(id);
+                
+                if (tender == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Tender Not Found",
+                        Tender = new { }
+                    });
+                }
 
+                List<TenderTasksDBModel> tenderTasks = await _tenderData.GetTenderTasks(id);
                 tender.TenderTasks = tenderTasks;
 
                 return Ok(new
@@ -110,6 +126,7 @@ namespace NETCoreWebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "ProjectManager,Client")]
         public async Task<IActionResult> Tenders()
         {
             try
@@ -121,6 +138,49 @@ namespace NETCoreWebAPI.Controllers
                     Errors = Array.Empty<Array>(),
                     Status = "Success",
                     Tenders = tenders
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("hold/{id}")]
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> Hold(int id)
+        {
+            try
+            {
+                int tenderId = await _tenderData.SetTenderHold(id);
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Tender = tenderId
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("close/{id}")]
+        public async Task<IActionResult> Close(int id)
+        {
+            try
+            {
+                int tenderId = await _tenderData.SetTenderClose(id);
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Tender = tenderId
                 });
             }
             catch (Exception ex)

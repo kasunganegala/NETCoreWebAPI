@@ -55,6 +55,7 @@ namespace NETCoreWebAPI
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ValidateLifetime = true,
                     ValidAudience = Configuration["JWT:ValidAudience"],
                     ValidIssuer = Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:Secret"])),
@@ -97,7 +98,12 @@ namespace NETCoreWebAPI
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseStaticFiles(); //need access to wwwroot folder.
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
+            app.UseStaticFiles(); 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

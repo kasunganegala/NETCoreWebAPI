@@ -8,5 +8,7 @@ namespace DataAccess.Data
         public Task<TenderDBModel?> GetTender(int id);
         public Task<List<TenderTasksDBModel>?> GetTenderTasks(int id);
         public Task<List<TenderDBModel>?> GetTenders();
+        Task<int> SetTenderClose(int id);
+        Task<int> SetTenderHold(int id);
     }
 }

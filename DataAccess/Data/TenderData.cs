@@ -93,5 +93,24 @@ namespace DataAccess.Data
 
             return tenderTaskData;
         }
+
+        public Task<int> SetTenderClose(int id)
+        {
+            var param = new DynamicParameters();
+            param.Add("@Id", id);
+
+            var result = _db.SaveData<int, DynamicParameters>("dbo.spTenderClose_Get", param);
+
+            return result;
+        }
+        public Task<int> SetTenderHold(int id)
+        {
+            var param = new DynamicParameters();
+            param.Add("@Id", id);
+
+            var result = _db.SaveData<int, DynamicParameters>("dbo.spTenderHold_Get", param);
+
+            return result;
+        }
     }
 }
