@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DataAccess.DBAccess;
 using DataAccess.Models;
+using DataAccess.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -84,14 +85,21 @@ namespace DataAccess.Data
             return tenderTaskData;
         }
 
-        public async Task<List<TenderDBModel>?> GetTenders()
+        public async Task<Grid<TenderDBModel>> GetTenders(int limit, int offset)
         {
-            var results = await _db.LoadData<TenderDBModel, dynamic>(
-                "dbo.spTenders_Get", new { });
+            Grid<TenderDBModel> tenderGrid = new Grid<TenderDBModel>();
 
-            var tenderTaskData = results.ToList();
+            var param = new DynamicParameters();
+            param.Add("@Limit", limit);
+            param.Add("@Offset", offset);
+            param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            return tenderTaskData;
+            var results = await _db.LoadData<TenderDBModel, dynamic>("dbo.spTenders_Get", param);
+
+            tenderGrid.Total = param.Get<int>("@NoOfRecords");
+            tenderGrid.Data = results;
+
+            return tenderGrid;
         }
 
         public Task<int> SetTenderClose(int id)

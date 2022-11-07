@@ -126,18 +126,20 @@ namespace NETCoreWebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("search/{limit}/{offset}")]
         [Authorize(Roles = "ProjectManager,Client")]
-        public async Task<IActionResult> Tenders()
+        public async Task<IActionResult> Tenders(int limit, int offset)
         {
             try
             {
-                List<TenderDBModel> tenders = await _tenderData.GetTenders();
+                Grid<TenderDBModel> tenders = await _tenderData.GetTenders(limit, offset);
 
                 return Ok(new
                 {
                     Errors = Array.Empty<Array>(),
                     Status = "Success",
-                    Tenders = tenders
+                    Tenders = tenders.Data,
+                    Total = tenders.Total
                 });
             }
             catch (Exception ex)
