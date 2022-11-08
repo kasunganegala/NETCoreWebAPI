@@ -23,31 +23,22 @@ namespace NETCoreWebAPI.BusinessRules.Tender
                 Comment = request.Comment,
                 CreatedByUsername = request.CreatedByUsername,
                 CreatedDateTime = System.DateTime.Now,
-                TenderTasks = new List<TenderTasksDBModel>
-                {
-                    new TenderTasksDBModel
-                    {
-                        Name = request.Task1,
-                        CreatedByUsername = request.CreatedByUsername,
-                        Description = request.Description,
-                        CreatedDateTime = System.DateTime.Now
-                    },
-                    new TenderTasksDBModel
-                    {
-                        Name = request.Task2,
-                        CreatedByUsername = request.CreatedByUsername,
-                        Description = request.Description,
-                        CreatedDateTime = System.DateTime.Now
-                    },
-                    new TenderTasksDBModel
-                    {
-                        Name = request.Task3,
-                        CreatedByUsername = request.CreatedByUsername,
-                        Description = request.Description,
-                        CreatedDateTime = System.DateTime.Now
-                    }
-                }
+                TenderTasks = new List<TenderTasksDBModel>()
             };
+
+            foreach (TenderTasksDBModel item in request.Tasks)
+            {
+                tenderDBModel.TenderTasks.Add(
+                    new TenderTasksDBModel
+                    {
+                        Task = item.Task,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                        ParentTenderTaskId = null,
+                        CreatedByUsername = request.CreatedByUsername,
+                        CreatedDateTime = System.DateTime.Now
+                    });
+            }
 
             return tenderDBModel;
         }

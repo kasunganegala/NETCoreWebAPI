@@ -29,8 +29,8 @@ namespace NETCoreWebAPI.Validations
             if (newTender.StartDateTime != null && newTender.EndDateTime != null && newTender.StartDateTime >= newTender.EndDateTime)
                 validationErrors.Add(new Error(nameof(newTender.EndDateTime), "End Date cannot be less than Start Date"));
 
-            if (string.IsNullOrEmpty(newTender.Task1) && string.IsNullOrEmpty(newTender.Task2) && string.IsNullOrEmpty(newTender.Task3))
-                validationErrors.Add(new Error(nameof(newTender.Task1), "Atleast one task is required"));
+            //if (string.IsNullOrEmpty(newTender.Task1) && string.IsNullOrEmpty(newTender.Task2) && string.IsNullOrEmpty(newTender.Task3))
+            //    validationErrors.Add(new Error(nameof(newTender.Task1), "Atleast one task is required"));
 
             return validationErrors;
         }

@@ -27,8 +27,9 @@ namespace DataAccess.Data
             dt.Columns.Add("Id");
             dt.Columns.Add("TenderId");
             dt.Columns.Add("ParentTenderTaskId");
-            dt.Columns.Add("Name");
-            dt.Columns.Add("Description");
+            dt.Columns.Add("Task");
+            dt.Columns.Add("StartDate");
+            dt.Columns.Add("EndDate");
             dt.Columns.Add("CreatedByUsername");
             dt.Columns.Add("CreatedDateTime");
             dt.Columns.Add("LastModifiedDateTime");
@@ -38,8 +39,9 @@ namespace DataAccess.Data
                 dt.Rows.Add(ttender.Id,
                     ttender.TenderId,
                     ttender.ParentTenderTaskId,
-                    ttender.Name,
-                    ttender.Description,
+                    ttender.Task,
+                    ttender.StartDate,
+                    ttender.EndDate,
                     ttender.CreatedByUsername,
                     ttender.CreatedDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss"),
                     ttender.LastModifiedDateTime?.Date.ToString("yyyy-MM-dd HH:mm:ss"));

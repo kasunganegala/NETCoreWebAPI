@@ -53,13 +53,11 @@ BEGIN TRY
 				[TenderId] 
 				,[ParentTenderTaskId]
 				,[Name]
-				,[Description] 
 				,[CreatedByUsername])
 			SELECT 
 				@TenderId
 				,[ParentTenderTaskId]
-				,IIF([Name] IS NULL, '', [Name]) 
-				,IIF([Description] IS NULL, '', [Description])
+				,IIF([Task] IS NULL, '', [Task]) 
 				,IIF([CreatedByUsername] IS NULL, '', [CreatedByUsername])
 			FROM @TenderTasks
 

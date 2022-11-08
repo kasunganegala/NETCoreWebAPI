@@ -19,9 +19,7 @@ namespace DataAccess.Models.Tender
         public string? Status { get; set; }
         public int? ProjectType { get; set; }
         public string? Comment { get; set; }
-        public string? Task1 { get; set; }
-        public string? Task2 { get; set; }
-        public string? Task3 { get; set; }
+        public List<TenderTasksDBModel>? Tasks { get; set; }
         public string? CreatedByUsername { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? LastModifiedDateTime { get; set; }
