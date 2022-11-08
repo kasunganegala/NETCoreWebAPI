@@ -15,6 +15,8 @@ namespace DataAccess.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool IsDeactivated { get; set; }
+        public int? CustomerId { get; set; }
+        public int? ContractorId { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime? LastModifiedDateTime { get; set; }
         

@@ -149,7 +149,9 @@ namespace NETCoreWebAPI.Controllers
                     roles = roles.ToList().Select(s => s.RoleName),
                     name = string.Concat(user.FirstName, " ", user.LastName),
                     email = user.Email,
-                    username = user.UserName
+                    username = user.UserName,
+                    customerId = user.CustomerId,
+                    contractorId = user.ContractorId
                 });
             }
             catch (Exception ex)

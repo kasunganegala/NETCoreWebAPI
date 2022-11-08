@@ -2,6 +2,7 @@
 using DataAccess.DBAccess;
 using DataAccess.Models;
 using DataAccess.Models.Common;
+using DataAccess.Models.Tender;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -85,13 +86,19 @@ namespace DataAccess.Data
             return tenderTaskData;
         }
 
-        public async Task<Grid<TenderDBModel>> GetTenders(int limit, int offset)
+        public async Task<Grid<TenderDBModel>> GetTenders(TenderSearchRequest searchRequest)
         {
             Grid<TenderDBModel> tenderGrid = new Grid<TenderDBModel>();
 
             var param = new DynamicParameters();
-            param.Add("@Limit", limit);
-            param.Add("@Offset", offset);
+            param.Add("@Limit", searchRequest.Limit);
+            param.Add("@Offset", searchRequest.Offset);
+            param.Add("@Customer", searchRequest.Customer);
+            param.Add("@TenderType", searchRequest.TenderType);
+            param.Add("@ProjectType", searchRequest.ProjectType);
+            param.Add("@StartDate", searchRequest.StartDate);
+            param.Add("@EndDate", searchRequest.EndDate);
+            param.Add("@UserRole", searchRequest.UserRole);
             param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             var results = await _db.LoadData<TenderDBModel, dynamic>("dbo.spTenders_Get", param);

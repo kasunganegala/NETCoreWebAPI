@@ -125,14 +125,14 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("search/{limit}/{offset}")]
+        [HttpPost]
+        [Route("search")]
         [Authorize(Roles = "ProjectManager,Client")]
-        public async Task<IActionResult> Tenders(int limit, int offset)
+        public async Task<IActionResult> Tenders([FromBody] TenderSearchRequest searchRequest)
         {
             try
             {
-                Grid<TenderDBModel> tenders = await _tenderData.GetTenders(limit, offset);
+                Grid<TenderDBModel> tenders = await _tenderData.GetTenders(searchRequest);
 
                 return Ok(new
                 {
