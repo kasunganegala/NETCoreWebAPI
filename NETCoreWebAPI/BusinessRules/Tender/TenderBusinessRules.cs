@@ -31,10 +31,11 @@ namespace NETCoreWebAPI.BusinessRules.Tender
                 tenderDBModel.TenderTasks.Add(
                     new TenderTasksDBModel
                     {
+                        TaskId = item.TaskId,
                         Task = item.Task,
                         StartDate = item.StartDate,
                         EndDate = item.EndDate,
-                        ParentTenderTaskId = null,
+                        ParentTaskId = null,
                         CreatedByUsername = request.CreatedByUsername,
                         CreatedDateTime = System.DateTime.Now
                     });

@@ -9,9 +9,9 @@ namespace DataAccess.Models
 {
     public class TenderTasksDBModel
     {
-        public int Id { get; set; }
-        public int TenderId { get; set; }
-        public int? ParentTenderTaskId { get; set; }
+        public int? TenderId { get; set; }
+        public int TaskId { get; set; }
+        public int? ParentTaskId { get; set; }
         public string Task { get; set; }
         public string CreatedByUsername { get; set; }
         public DateTime? StartDate { get; set; }

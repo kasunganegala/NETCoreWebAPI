@@ -2,10 +2,12 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
 	[TenderId] INT NOT NULL, 
-	[ParentTenderTaskId] INT NULL, 
-	[Name] NVARCHAR(20) NOT NULL, 
-	[Description] NVARCHAR(500) NOT NULL, 
-	[CreatedByUsername] NVARCHAR(20) NOT NULL,
+	[TaskId] INT NULL, 
+	[ParentTaskId] INT NULL, 
+	[Task] NVARCHAR(MAX) NOT NULL, 
+	[StartDateTime] DATETIME NULL, 
+	[EndDateTime] DATETIME NULL, 
+	[CreatedByUsername] NVARCHAR(100) NOT NULL,
 	[CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 
     [LastModifiedDateTime] DATETIME NULL,
 

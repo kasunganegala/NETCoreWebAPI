@@ -50,15 +50,21 @@ BEGIN TRY
 			WHERE t.Id = @TenderId
 
 			INSERT INTO TenderTasks(
-				[TenderId] 
-				,[ParentTenderTaskId]
-				,[Name]
-				,[CreatedByUsername])
+				 [TenderId] 
+				,[TaskId]
+				,[ParentTaskId]
+				,[Task]
+				,[CreatedByUsername]
+				,[StartDateTime]
+				,[EndDateTime])
 			SELECT 
-				@TenderId
-				,[ParentTenderTaskId]
+				 @TenderId
+				,[TaskId]
+				,[ParentTaskId]
 				,IIF([Task] IS NULL, '', [Task]) 
 				,IIF([CreatedByUsername] IS NULL, '', [CreatedByUsername])
+				,[StartDate]
+				,[EndDate]
 			FROM @TenderTasks
 
 			SELECT @TenderId 

@@ -24,9 +24,9 @@ namespace DataAccess.Data
         public Task<int> InsertNewTender(TenderDBModel tender)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("Id");
             dt.Columns.Add("TenderId");
-            dt.Columns.Add("ParentTenderTaskId");
+            dt.Columns.Add("TaskId");
+            dt.Columns.Add("ParentTaskId");
             dt.Columns.Add("Task");
             dt.Columns.Add("StartDate");
             dt.Columns.Add("EndDate");
@@ -36,12 +36,13 @@ namespace DataAccess.Data
 
             foreach (var ttender in tender.TenderTasks)
             {
-                dt.Rows.Add(ttender.Id,
+                dt.Rows.Add(
                     ttender.TenderId,
-                    ttender.ParentTenderTaskId,
+                    ttender.TaskId,
+                    ttender.ParentTaskId,
                     ttender.Task,
-                    ttender.StartDate,
-                    ttender.EndDate,
+                    ttender.StartDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    ttender.EndDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
                     ttender.CreatedByUsername,
                     ttender.CreatedDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss"),
                     ttender.LastModifiedDateTime?.Date.ToString("yyyy-MM-dd HH:mm:ss"));
