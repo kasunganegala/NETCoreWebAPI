@@ -57,6 +57,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpPost]
         [Route("create")]
+        [Authorize(Roles = "ProjectManager")]
         public async Task<IActionResult> Create([FromBody] TenderModel model)
         {
             try
@@ -92,7 +93,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "ProjectManager,Client")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
         public async Task<IActionResult> Tender(int id)
         {
             try
@@ -127,7 +128,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpPost]
         [Route("search")]
-        [Authorize(Roles = "ProjectManager,Client")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
         public async Task<IActionResult> Tenders([FromBody] TenderSearchRequest searchRequest)
         {
             try
@@ -150,7 +151,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpGet]
         [Route("hold/{id}")]
-        [Authorize(Roles = "Client")]
+        [Authorize(Roles = "ProjectManager")]
         public async Task<IActionResult> Hold(int id)
         {
             try
@@ -172,6 +173,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpGet]
         [Route("close/{id}")]
+        [Authorize(Roles = "ProjectManager")]
         public async Task<IActionResult> Close(int id)
         {
             try
