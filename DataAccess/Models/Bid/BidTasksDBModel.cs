@@ -9,7 +9,7 @@ namespace DataAccess.Models
 {
     public class BidTasksDBModel
     {
-
+        public int? Id { get; set; }
         public int? BidId { get; set; }
         public int TaskId { get; set; }
         public int? ParentTaskId { get; set; }

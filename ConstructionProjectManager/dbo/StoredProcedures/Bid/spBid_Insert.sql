@@ -1,73 +1,70 @@
 ﻿CREATE PROCEDURE [dbo].[spBid_Insert]
 	@Id INT,
-	@Name NVARCHAR(20),
-	@Description NVARCHAR(500),
-	@TenderType INT,
+	@TenderId INT,
+	@ContractorId INT,
+	@Name VARCHAR(MAX),
 	@StartDateTime DATETIME,
 	@EndDateTime DATETIME,
-	@CustomerId INT,
-	@Status NVARCHAR(4),
-	@ProjectType INT,
+	@IsSubmitted BIT,
+	@Status NVARCHAR(15),
 	@Comment NVARCHAR(500),
 	@CreatedByUsername NVARCHAR(20),
 	@CreatedDateTime DATETIME,
 	@LastModifiedDateTime DATETIME,
-	@TenderTasks udtTenderTasksType READONLY
+	@BidTasks udtBidTasksType READONLY	
 AS
 BEGIN
 BEGIN TRY
 	BEGIN TRANSACTION
 
-		INSERT INTO Tenders	(
-			[Name] 
-			,[Description] 
-			,[TenderType]
+		INSERT INTO Bids(
+			[TenderId]
+			,[Name]
+			,[ContractorId]
 			,[StartDateTime]
 			,[EndDateTime]
-			,[CustomerId]
-			,[Status] 
-			,[ProjectType]
+			,[IsSubmitted]
+			,[Status]
 			,[Comment]
 			,[CreatedByUsername])
 		VALUES(
-			IIF(@Name IS NULL, '', @Name)
-			,IIF(@Description IS NULL, '', @Description)
-			,@TenderType
-			,@StartDateTime 
+			@TenderId
+			,CONCAT('Contractor : ' , CAST(@ContractorId AS VARCHAR))
+			,@ContractorId
+			,@StartDateTime
 			,@EndDateTime
-			,@CustomerId
-			,@Status 
-			,@ProjectType 
-			,@Comment 
+			,@IsSubmitted
+			,@Status
+			,@Comment
 			,@CreatedByUsername)
 
-			DECLARE @TenderId AS INT = SCOPE_IDENTITY();
+			DECLARE @BidId AS INT = SCOPE_IDENTITY();
 
-			UPDATE t
-			SET t.[Name] = CONCAT('T', FORMAT(@TenderId, '0000'), ' ', c.Name)
-			FROM Tenders t
-			INNER JOIN Customers AS c ON c.Id = t.CustomerId
-			WHERE t.Id = @TenderId
+			UPDATE b
+			SET b.[Name] = CONCAT('B', FORMAT(@BidId, '0000'), ' ', con.Name)
+			FROM Bids b
+				INNER JOIN Contractors AS con ON con.Id = b.ContractorId
+			WHERE b.Id = @BidId
 
-			INSERT INTO TenderTasks(
-				 [TenderId] 
-				,[TaskId]
-				,[ParentTaskId]
-				,[Task]
-				,[CreatedByUsername]
-				,[StartDateTime]
-				,[EndDateTime])
+			INSERT INTO BidTasks(
+				[BidId],
+				[TaskId],
+				[ParentTaskkId], 
+				[Task], 
+				[CreatedByUsername],
+				[StartDateTime],
+				[EndDateTime])
 			SELECT 
-				 @TenderId
+				@BidId
 				,[TaskId]
 				,[ParentTaskId]
 				,IIF([Task] IS NULL, '', [Task]) 
 				,IIF([CreatedByUsername] IS NULL, '', [CreatedByUsername])
-				,[StartDate]
-				,[EndDate]
-			FROM @TenderTasks
+				,[StartDateTime]
+				,[EndDateTime]
+			FROM @BidTasks
 
-			SELECT @TenderId 
+			SELECT @BidId 
 
 	COMMIT TRAN -- Transaction Success!
 END TRY

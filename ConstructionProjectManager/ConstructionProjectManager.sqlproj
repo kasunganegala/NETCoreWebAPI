@@ -90,6 +90,8 @@
     <Build Include="dbo\StoredProcedures\Tender\spTenderHold_Get.sql" />
     <Build Include="dbo\StoredProcedures\Tender\spTenderClose_Get.sql" />
     <Build Include="dbo\StoredProcedures\Bid\spBid_Insert.sql" />
+    <Build Include="dbo\Udt\udtBidTasksType.sql" />
+    <Build Include="dbo\Tables\Contractors.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

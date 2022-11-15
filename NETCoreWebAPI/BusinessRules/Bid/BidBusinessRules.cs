@@ -10,10 +10,12 @@ namespace NETCoreWebAPI.BusinessRules.Bid
     {
         public static BidDBModel GenerateBidModel(BidModel request)
         {
-            BidDBModel tenderDBModel = new BidDBModel
+            BidDBModel bidDBModel = new BidDBModel
             {
                 Id = request.Id,
                 TenderId = request.TenderId,
+                ContractorId = request.ContractorId,
+                Name = request.Name,
                 StartDateTime = (System.DateTime)request.StartDateTime,
                 EndDateTime = (System.DateTime)request.EndDateTime,
                 IsSubmitted = request.IsSubmitted,
@@ -26,7 +28,7 @@ namespace NETCoreWebAPI.BusinessRules.Bid
 
             foreach (BidTasksDBModel item in request.BidTasks)
             {
-                tenderDBModel.BidTasks.Add(
+                bidDBModel.BidTasks.Add(
                     new BidTasksDBModel
                     {
                         BidId = item.BidId,
@@ -40,7 +42,7 @@ namespace NETCoreWebAPI.BusinessRules.Bid
                     });
             }
 
-            return tenderDBModel;
+            return bidDBModel;
         }
     }
 }

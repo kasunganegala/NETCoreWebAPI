@@ -2,6 +2,8 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
 	[TenderId] INT NOT NULL, 
+	[ContractorId] INT NOT NULL, 
+	[Name] VARCHAR(MAX) NOT NULL, 
 	[StartDateTime] DATETIME NOT NULL, 
 	[EndDateTime] DATETIME NOT NULL, 
 	[IsSubmitted] BIT DEFAULT 0,

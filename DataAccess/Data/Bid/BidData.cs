@@ -21,48 +21,49 @@ namespace DataAccess.Data
             _db = db;
         }
 
-        public Task<int> InsertNewBid(BidDBModel tender)
+        public Task<int> InsertNewBid(BidDBModel bid)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("TenderId");
+            dt.Columns.Add("Id");
+            dt.Columns.Add("BidId");
             dt.Columns.Add("TaskId");
             dt.Columns.Add("ParentTaskId");
             dt.Columns.Add("Task");
-            dt.Columns.Add("StartDate");
-            dt.Columns.Add("EndDate");
             dt.Columns.Add("CreatedByUsername");
+            dt.Columns.Add("StartDateTime");
+            dt.Columns.Add("EndDateTime");
             dt.Columns.Add("CreatedDateTime");
             dt.Columns.Add("LastModifiedDateTime");
 
-            foreach (var ttender in tender.TenderTasks)
+            foreach (var tbid in bid.BidTasks)
             {
                 dt.Rows.Add(
-                    ttender.TenderId,
-                    ttender.TaskId,
-                    ttender.ParentTaskId,
-                    ttender.Task,
-                    ttender.StartDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
-                    ttender.EndDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
-                    ttender.CreatedByUsername,
-                    ttender.CreatedDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss"),
-                    ttender.LastModifiedDateTime?.Date.ToString("yyyy-MM-dd HH:mm:ss"));
+                    tbid.Id,
+                    tbid.BidId,
+                    tbid.TaskId,
+                    tbid.ParentTaskId,
+                    tbid.Task,
+                    tbid.CreatedByUsername,
+                    tbid.StartDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    tbid.EndDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    tbid.CreatedDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    tbid.LastModifiedDateTime?.Date.ToString("yyyy-MM-dd HH:mm:ss"));
             }
 
             var param = new DynamicParameters();
-            param.Add("@TenderTasks", dt, DbType.Object);
-            param.Add("@Id", tender.Id);
-            param.Add("@Name", tender.Name);
-            param.Add("@Description", tender.Description);
-            param.Add("@TenderType", tender.TenderType);
-            param.Add("@StartDateTime", tender.StartDateTime);
-            param.Add("@EndDateTime", tender.EndDateTime);
-            param.Add("@CustomerId", tender.CustomerId);
-            param.Add("@Status", tender.Status);
-            param.Add("@ProjectType", tender.ProjectType);
-            param.Add("@Comment", tender.Comment);
-            param.Add("@CreatedByUsername", tender.CreatedByUsername);
-            param.Add("@CreatedDateTime", tender.CreatedDateTime);
-            param.Add("@LastModifiedDateTime", tender.LastModifiedDateTime);
+            param.Add("@BidTasks", dt, DbType.Object);
+            param.Add("@Id", bid.Id);
+            param.Add("@TenderId", bid.TenderId);
+            param.Add("@ContractorId", bid.ContractorId);
+            param.Add("@Name", bid.Name);
+            param.Add("@StartDateTime", bid.StartDateTime);
+            param.Add("@EndDateTime", bid.EndDateTime);
+            param.Add("@IsSubmitted", bid.IsSubmitted);
+            param.Add("@Status", bid.Status);
+            param.Add("@Comment", bid.Comment);
+            param.Add("@CreatedByUsername", bid.CreatedByUsername);
+            param.Add("@CreatedDateTime", bid.CreatedDateTime);
+            param.Add("@LastModifiedDateTime", bid.LastModifiedDateTime);
 
             var result = _db.SaveData<int, DynamicParameters>("dbo.spBid_Insert", param);
 
