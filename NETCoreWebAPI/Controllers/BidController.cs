@@ -71,7 +71,7 @@ namespace NETCoreWebAPI.Controllers
                     {
                         Errors = Errors,
                         Status = "Validation Errors",
-                        TenderId = 0
+                        BidId = 0
                     });
                 }
 
@@ -83,7 +83,7 @@ namespace NETCoreWebAPI.Controllers
                 {
                     Errors = Array.Empty<Array>(),
                     Status = "Success",
-                    TenderId = newBidId
+                    BidId = newBidId
                 });
             }
             catch (Exception ex)
