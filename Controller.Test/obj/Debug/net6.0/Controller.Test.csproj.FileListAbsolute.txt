@@ -155,3 +155,13 @@ H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAP
 H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\obj\Debug\net6.0\Controller.Test.pdb
 H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\obj\Debug\net6.0\Controller.Test.genruntimeconfig.cache
 H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\obj\Debug\net6.0\ref\Controller.Test.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\System.Web.Http.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\Castle.Core.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\FakeItEasy.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\AutoFixture.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\AutoFixture.AutoMoq.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\Fare.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\Microsoft.AspNetCore.TestHost.dll
+H:\MSc\3rd Semester\3201 - Individual Project - Repeat\Code\Backend-NETCoreWebAPI\NETCoreWebAPI\Controller.Test\bin\Debug\net6.0\Moq.dll
