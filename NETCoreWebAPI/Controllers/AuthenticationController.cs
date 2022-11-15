@@ -46,30 +46,30 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpGet]
         [Route("Users")]
-        public async Task<IResult> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
         {
 
             try
             {
-                return Results.Ok(await _userData.GetUsers());
+                return Ok(await _userData.GetUsers());
             }
             catch (Exception ex)
             {
-                return Results.Problem(ex.Message);
+                return Problem(ex.Message);
             }
         }
 
         [HttpGet]
         [Route("Users/{id}")]
-        public async Task<IResult> GetUser(int id)
+        public async Task<ActionResult<UserData>> GetUser(int id)
         {
             try
             {
-                return Results.Ok(await _userData.GetUser(id));
+                return Ok(await _userData.GetUser(id));
             }
             catch (Exception ex)
             {
-                return Results.Problem(ex.Message);
+                return Problem(ex.Message);
             }
         }
 
