@@ -8,6 +8,10 @@ using Xunit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using DataAccess.Models.Bid;
+using DataAccess.Models.Common;
+using System;
+using NETCoreWebAPI.BusinessRules.Bid;
 
 namespace Controller.Test.xUnit
 {
@@ -15,48 +19,129 @@ namespace Controller.Test.xUnit
     {
         private readonly IFixture _ifixture;
         private readonly Mock<IConfiguration> _configuration;
-        private readonly Mock<IUserData> _userData;
-        private readonly AuthenticationController _authenticationController;
+        private readonly Mock<IBidData> _bidData;
+        private readonly BidController _bidController;
 
         public BidControllerTest()
         {
             _ifixture = new Fixture();
             _configuration = _ifixture.Freeze<Mock<IConfiguration>>();
-            _userData = _ifixture.Freeze<Mock<IUserData>>();
+            _bidData = _ifixture.Freeze<Mock<IBidData>>();
 
-            _authenticationController = new AuthenticationController(_configuration.Object, _userData.Object);
+            _bidController = new BidController(_configuration.Object, _bidData.Object);
         }
 
         [Fact]
-        [Trait("Category","Authentication")]
-        public async void Returns_Correct_User()
+        [Trait("Category", "Bid")]
+        public async void Returns_Newly_Created_Bid_Id()
         {
-            var UserModelMock = _ifixture.Create<UserModel>();
-            
-            _userData.Setup(x => x.GetUser(2)).ReturnsAsync(UserModelMock);
-            var result = await _authenticationController.GetUser(2);
-            var processedResult = result.Result as OkObjectResult;
+            var bidValidationsMock = _ifixture.Create<List<Error>>();
+            //var tenderDBMock = _ifixture.Create<TenderDBModel>();
+            var bidMock = _ifixture.Create<BidModel>();
+            var newTenderId = 4;
 
-            var processedResultValue = processedResult?.Value;
+            bidMock.StartDateTime = DateTime.Now;
+            bidMock.EndDateTime = DateTime.Now.AddDays(1);
 
-            Assert.NotNull(processedResultValue);
-            Assert.Equal(UserModelMock, processedResultValue);
+            BidDBModel bidDBMock = BidBusinessRules.GenerateBidModel(bidMock);
+            _bidData.Setup(x => x.InsertNewBid(bidDBMock)).ReturnsAsync(newTenderId);
+
+            var result = _bidController.Create(bidMock).Result;
+            OkObjectResult processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var BidId = (int)processedResult?.Value?.GetType().GetProperty("BidId").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
         }
 
         [Fact]
-        [Trait("Category", "Authentication")]
-        public async void Returns_Correct_Number_Of_Users()
+        [Trait("Category", "Bid")]
+        public async void Returns_Bid()
         {
-            var UserModelMock = _ifixture.Create<IEnumerable<UserModel>>();
+            var bidValidationsMock = _ifixture.Create<List<Error>>();
+            //var tenderDBMock = _ifixture.Create<TenderDBModel>();
+            var bidMock = _ifixture.Create<BidModel>();
+            var newTenderId = 4;
 
-            _userData.Setup(x => x.GetUsers()).ReturnsAsync(UserModelMock);
-            var result = await _authenticationController.GetUsers();
-            var processedResult = result.Result as OkObjectResult;
+            bidMock.StartDateTime = DateTime.Now;
+            bidMock.EndDateTime = DateTime.Now.AddDays(1);
 
-            var processedResultValue = processedResult?.Value;
+            BidDBModel bidDBMock = BidBusinessRules.GenerateBidModel(bidMock);
+            _bidData.Setup(x => x.InsertNewBid(bidDBMock)).ReturnsAsync(newTenderId);
 
-            Assert.NotNull(processedResultValue);
-            Assert.Equal(UserModelMock, processedResultValue);
+            var result = _bidController.Create(bidMock).Result;
+            OkObjectResult processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var BidId = (int)processedResult?.Value?.GetType().GetProperty("BidId").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
         }
+
+
+        [Fact]
+        [Trait("Category", "Bid")]
+        public async void Returns_Accept_Bid()
+        {
+            var bidValidationsMock = _ifixture.Create<List<Error>>();
+            //var tenderDBMock = _ifixture.Create<TenderDBModel>();
+            var bidMock = _ifixture.Create<BidModel>();
+            var newTenderId = 4;
+
+            bidMock.StartDateTime = DateTime.Now;
+            bidMock.EndDateTime = DateTime.Now.AddDays(1);
+
+            BidDBModel bidDBMock = BidBusinessRules.GenerateBidModel(bidMock);
+            _bidData.Setup(x => x.InsertNewBid(bidDBMock)).ReturnsAsync(newTenderId);
+
+            var result = _bidController.Create(bidMock).Result;
+            OkObjectResult processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var BidId = (int)processedResult?.Value?.GetType().GetProperty("BidId").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
+        }
+
+
+        [Fact]
+        [Trait("Category", "Bid")]
+        public async void Returns_Reject_Bid()
+        {
+            var bidValidationsMock = _ifixture.Create<List<Error>>();
+            //var tenderDBMock = _ifixture.Create<TenderDBModel>();
+            var bidMock = _ifixture.Create<BidModel>();
+            var newTenderId = 4;
+
+            bidMock.StartDateTime = DateTime.Now;
+            bidMock.EndDateTime = DateTime.Now.AddDays(1);
+
+            BidDBModel bidDBMock = BidBusinessRules.GenerateBidModel(bidMock);
+            _bidData.Setup(x => x.InsertNewBid(bidDBMock)).ReturnsAsync(newTenderId);
+
+            var result = _bidController.Create(bidMock).Result;
+            OkObjectResult processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var BidId = (int)processedResult?.Value?.GetType().GetProperty("BidId").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
+        }
+
     }
 }
+
+

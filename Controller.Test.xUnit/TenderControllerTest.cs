@@ -66,11 +66,83 @@ namespace Controller.Test.xUnit
             _tenderData.Setup(x => x.InsertNewTender(tenderDBMock)).ReturnsAsync(newTenderId);
 
             var result = _tenderController.Create(tenderMock).Result;
+            OkObjectResult processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+        }
+
+        [Fact]
+        [Trait("Category", "Tender")]
+        public async void Returns_Tenders()
+        {
+            var TenderSearchRequestMock = _ifixture.Create<TenderSearchRequest>();
+            var GridTenderDBModelMock = _ifixture.Create<Grid<TenderDBModel>>();
+            _tenderData.Setup(x => x.GetTenders(TenderSearchRequestMock)).ReturnsAsync(GridTenderDBModelMock);
+
+            var result = await _tenderController.Tenders(TenderSearchRequestMock);
             var processedResult = result as OkObjectResult;
 
-            var processedResultValue = (dynamic)processedResult?.Value;
+            Assert.NotNull(processedResult?.Value);
 
-            Assert.NotNull(processedResultValue);
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var Tenders = (dynamic)processedResult?.Value?.GetType().GetProperty("Tenders").GetValue(processedResult?.Value);
+            var Total = (int)processedResult?.Value?.GetType().GetProperty("Total").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
+        }
+
+        [Fact]
+        [Trait("Category", "Tender")]
+        public async void Returns_Put_Tender_Hold()
+        {
+            int TenderidMock = _ifixture.Create<int>();
+            TenderidMock = 2;
+            _tenderData.Setup(x => x.SetTenderHold(TenderidMock)).ReturnsAsync(TenderidMock);
+
+            var result = await _tenderController.Hold(TenderidMock);
+            var processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var Tender = (int)processedResult?.Value?.GetType().GetProperty("Tender").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
+            Assert.NotNull(Tender);
+            Assert.Equal(Tender, TenderidMock);
+
+        }
+
+        [Fact]
+        [Trait("Category", "Tender")]
+        public async void Returns_Put_Tender_Close()
+        {
+            int TenderidMock = _ifixture.Create<int>();
+            TenderidMock = 2;
+            _tenderData.Setup(x => x.SetTenderClose(TenderidMock)).ReturnsAsync(TenderidMock);
+
+            var result = await _tenderController.Close(TenderidMock);
+            var processedResult = result as OkObjectResult;
+
+            Assert.NotNull(processedResult?.Value);
+
+            var Errors = (dynamic)processedResult?.Value?.GetType().GetProperty("Errors").GetValue(processedResult?.Value);
+            var Status = (string)processedResult?.Value?.GetType().GetProperty("Status").GetValue(processedResult?.Value);
+            var Tender = (int)processedResult?.Value?.GetType().GetProperty("Tender").GetValue(processedResult?.Value);
+
+            Assert.Equal(Status, "Success");
+            Assert.NotNull(Tender);
+            Assert.Equal(Tender, TenderidMock);
+
         }
     }
+
+    //public class TestTenderCreateResut
+    //{
+    //    public Array[] Errors { get; set; }
+    //    public string Status { get; set; }
+    //    public int Tenders { get; set; }
+    //}
 }

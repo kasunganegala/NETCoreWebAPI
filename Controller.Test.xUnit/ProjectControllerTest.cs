@@ -28,8 +28,8 @@ namespace Controller.Test.xUnit
         }
 
         [Fact]
-        [Trait("Category","Authentication")]
-        public async void Returns_Correct_User()
+        [Trait("Category","Project")]
+        public async void Returns_Project_data()
         {
             var UserModelMock = _ifixture.Create<UserModel>();
             
@@ -44,8 +44,40 @@ namespace Controller.Test.xUnit
         }
 
         [Fact]
-        [Trait("Category", "Authentication")]
-        public async void Returns_Correct_Number_Of_Users()
+        [Trait("Category", "Project")]
+        public async void Returns_Updated_Project_Data()
+        {
+            var UserModelMock = _ifixture.Create<IEnumerable<UserModel>>();
+
+            _userData.Setup(x => x.GetUsers()).ReturnsAsync(UserModelMock);
+            var result = await _authenticationController.GetUsers();
+            var processedResult = result.Result as OkObjectResult;
+
+            var processedResultValue = processedResult?.Value;
+
+            Assert.NotNull(processedResultValue);
+            Assert.Equal(UserModelMock, processedResultValue);
+        }
+
+        [Fact]
+        [Trait("Category", "Project")]
+        public async void Returns_Update_Project_Status()
+        {
+            var UserModelMock = _ifixture.Create<IEnumerable<UserModel>>();
+
+            _userData.Setup(x => x.GetUsers()).ReturnsAsync(UserModelMock);
+            var result = await _authenticationController.GetUsers();
+            var processedResult = result.Result as OkObjectResult;
+
+            var processedResultValue = processedResult?.Value;
+
+            Assert.NotNull(processedResultValue);
+            Assert.Equal(UserModelMock, processedResultValue);
+        }
+
+        [Fact]
+        [Trait("Category", "Project")]
+        public async void Returns_Log_Time()
         {
             var UserModelMock = _ifixture.Create<IEnumerable<UserModel>>();
 

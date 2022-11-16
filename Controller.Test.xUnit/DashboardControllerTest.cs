@@ -28,8 +28,8 @@ namespace Controller.Test.xUnit
         }
 
         [Fact]
-        [Trait("Category","Authentication")]
-        public async void Returns_Correct_User()
+        [Trait("Category","Dashboard")]
+        public async void Returns_Dashboard_data()
         {
             var UserModelMock = _ifixture.Create<UserModel>();
             
@@ -44,8 +44,8 @@ namespace Controller.Test.xUnit
         }
 
         [Fact]
-        [Trait("Category", "Authentication")]
-        public async void Returns_Correct_Number_Of_Users()
+        [Trait("Category", "Dashboard")]
+        public async void Returns_Tile_Numbers()
         {
             var UserModelMock = _ifixture.Create<IEnumerable<UserModel>>();
 

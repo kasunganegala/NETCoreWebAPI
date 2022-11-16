@@ -121,5 +121,29 @@ namespace Controller.Test.xUnit
             Assert.NotNull(processedResultValue);
         }
 
+        [Fact]
+        [Trait("Category", "Authentication")]
+        public async void Returns_Logout()
+        {
+            UserModel UserModelMock = _ifixture.Create<UserModel>();
+            UserModelMock.IsDeactivated = false;
+            IEnumerable<RolesModel> RolesModelMock = _ifixture.Create<IEnumerable<RolesModel>>();
+
+
+            _configuration.Setup(x => x["JWT:Secret"]).Returns("ConstructionProjectManagementSystem");
+            _configuration.Setup(x => x["JWT:ValidIssuer"]).Returns("http://localhost:44331");
+            _configuration.Setup(x => x["JWT:ValidAudience"]).Returns("FortranUsers");
+
+            _userData.Setup(x => x.GetUser("c@c.com", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3")).ReturnsAsync(UserModelMock);
+            _userData.Setup(x => x.GetUserRoles(UserModelMock.Id)).ReturnsAsync(RolesModelMock);
+
+            var result = await _authenticationController.Login(new LoginModel() { Email = "c@c.com", Password = "123" });
+            var processedResult = result as OkObjectResult;
+
+            dynamic processedResultValue = processedResult?.Value;
+
+            Assert.NotNull(processedResultValue);
+        }
+
     }
 }
