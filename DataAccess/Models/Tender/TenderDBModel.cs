@@ -16,6 +16,7 @@ namespace DataAccess.Models
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
         public int? CustomerId { get; set; }
+        public int? BidsCount { get; set; }
         public string? Status { get; set; }
         public int? ProjectType { get; set; }
         public string? Comment { get; set; }

@@ -78,6 +78,15 @@ namespace DataAccess.Data
             return results.FirstOrDefault();
         }
 
+        public async Task<List<BidDBModel>?> GetTenderBids(int id)
+        {
+            var results = await _db.LoadData<BidDBModel, dynamic>(
+                "dbo.spTenderBids_Get",
+                new { Id = id });
+
+            return results.ToList();
+        }
+
         public async Task<List<TenderTasksDBModel>?> GetTenderTasks(int id)
         {
             var results = await _db.LoadData<TenderTasksDBModel, dynamic>(

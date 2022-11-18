@@ -70,48 +70,48 @@ namespace DataAccess.Data
             return result;
         }
 
-        //public async Task<TenderDBModel?> GetTender(int id)
-        //{
-        //    var results = await _db.LoadData<TenderDBModel, dynamic>(
-        //        "dbo.spTender_Get",
-        //        new { Id = id });
+        public async Task<BidDBModel?> GetBid(int id)
+        {
+            var results = await _db.LoadData<BidDBModel, dynamic>(
+                "dbo.spBid_Get",
+                new { Id = id });
 
-        //    return results.FirstOrDefault();
-        //}
+            return results.FirstOrDefault();
+        }
 
-        //public async Task<List<TenderTasksDBModel>?> GetTenderTasks(int id)
-        //{
-        //    var results = await _db.LoadData<TenderTasksDBModel, dynamic>(
-        //        "dbo.spTenderTasks_Get",
-        //        new { Id = id });
+        public async Task<List<BidTasksDBModel>?> GetBidTasks(int id)
+        {
+            var results = await _db.LoadData<BidTasksDBModel, dynamic>(
+                "dbo.spBidTasks_Get",
+                new { Id = id });
 
-        //    var tenderTaskData = results.ToList();
+            var bidTaskData = results.ToList();
 
-        //    return tenderTaskData;
-        //}
+            return bidTaskData;
+        }
 
-        //public async Task<Grid<TenderDBModel>> GetTenders(TenderSearchRequest searchRequest)
-        //{
-        //    Grid<TenderDBModel> tenderGrid = new Grid<TenderDBModel>();
+        public async Task<Grid<TenderDBModel>> GetTenders(TenderSearchRequest searchRequest)
+        {
+            Grid<TenderDBModel> tenderGrid = new Grid<TenderDBModel>();
 
-        //    var param = new DynamicParameters();
-        //    param.Add("@Limit", searchRequest.Limit);
-        //    param.Add("@Offset", searchRequest.Offset);
-        //    param.Add("@Customer", searchRequest.Customer);
-        //    param.Add("@TenderType", searchRequest.TenderType);
-        //    param.Add("@ProjectType", searchRequest.ProjectType);
-        //    param.Add("@StartDate", searchRequest.StartDate);
-        //    param.Add("@EndDate", searchRequest.EndDate);
-        //    param.Add("@UserRole", searchRequest.UserRole);
-        //    param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            var param = new DynamicParameters();
+            param.Add("@Limit", searchRequest.Limit);
+            param.Add("@Offset", searchRequest.Offset);
+            param.Add("@Customer", searchRequest.Customer);
+            param.Add("@TenderType", searchRequest.TenderType);
+            param.Add("@ProjectType", searchRequest.ProjectType);
+            param.Add("@StartDate", searchRequest.StartDate);
+            param.Add("@EndDate", searchRequest.EndDate);
+            param.Add("@UserRole", searchRequest.UserRole);
+            param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-        //    var results = await _db.LoadData<TenderDBModel, dynamic>("dbo.spTenders_Get", param);
+            var results = await _db.LoadData<TenderDBModel, dynamic>("dbo.spTenders_Get", param);
 
-        //    tenderGrid.Total = param.Get<int>("@NoOfRecords");
-        //    tenderGrid.Data = results;
+            tenderGrid.Total = param.Get<int>("@NoOfRecords");
+            tenderGrid.Data = results;
 
-        //    return tenderGrid;
-        //}
+            return tenderGrid;
+        }
 
         //public Task<int> SetTenderClose(int id)
         //{

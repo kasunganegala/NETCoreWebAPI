@@ -135,6 +135,13 @@ namespace NETCoreWebAPI.Controllers
             {
                 Grid<TenderDBModel> tenders = await _tenderData.GetTenders(searchRequest);
 
+                foreach (TenderDBModel tender in tenders.Data)
+                {
+                    List<BidDBModel> bids = await _tenderData.GetTenderBids((int)tender.Id);
+
+                    tender.BidsCount = bids.Count;
+                }
+
                 return Ok(new
                 {
                     Errors = Array.Empty<Array>(),
@@ -192,6 +199,45 @@ namespace NETCoreWebAPI.Controllers
                 return Problem(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Tender id</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/bids")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> GetTenderBids(int id)
+        {
+            try
+            {
+                
+                List<BidDBModel> bids = await _tenderData.GetTenderBids(id);
+
+                if (bids == null || bids.Count == 0)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Bids Not Found",
+                        Bids = new { }
+                    });
+                }
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Bids = bids
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
 
     }
 }

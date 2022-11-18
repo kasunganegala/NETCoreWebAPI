@@ -92,40 +92,40 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("{id}")]
-        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
-        //public async Task<IActionResult> Tender(int id)
-        //{
-        //    try
-        //    {
-        //        TenderDBModel tender = await _tenderData.GetTender(id);
-                
-        //        if (tender == null)
-        //        {
-        //            return Ok(new
-        //            {
-        //                Errors = Array.Empty<Array>(),
-        //                Status = "Tender Not Found",
-        //                Tender = new { }
-        //            });
-        //        }
+        [HttpGet]
+        [Route("{id}")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> Bid(int id)
+        {
+            try
+            {
+                BidDBModel bid = await _bidData.GetBid(id);
 
-        //        List<TenderTasksDBModel> tenderTasks = await _tenderData.GetTenderTasks(id);
-        //        tender.TenderTasks = tenderTasks;
+                if (bid == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Bid Not Found",
+                        Bid = new { }
+                    });
+                }
 
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Tender = tender
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                List<BidTasksDBModel> bidTasks = await _bidData.GetBidTasks(id);
+                bid.BidTasks = bidTasks;
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Bid = bid
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
         //[HttpPost]
         //[Route("search")]
