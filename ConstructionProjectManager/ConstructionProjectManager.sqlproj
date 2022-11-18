@@ -95,6 +95,7 @@
     <Build Include="dbo\StoredProcedures\Tender\spTenderBids_Get.sql" />
     <Build Include="dbo\StoredProcedures\Bid\spBid_Get.sql" />
     <Build Include="dbo\StoredProcedures\Bid\spBidTasks_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Bid\spBids_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

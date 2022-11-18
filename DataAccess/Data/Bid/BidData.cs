@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DataAccess.DBAccess;
 using DataAccess.Models;
+using DataAccess.Models.Bid;
 using DataAccess.Models.Common;
 using DataAccess.Models.Tender;
 using System;
@@ -90,9 +91,9 @@ namespace DataAccess.Data
             return bidTaskData;
         }
 
-        public async Task<Grid<TenderDBModel>> GetTenders(TenderSearchRequest searchRequest)
+        public async Task<Grid<BidsSearchResponse>> GetBids(BidsSearchRequest searchRequest)
         {
-            Grid<TenderDBModel> tenderGrid = new Grid<TenderDBModel>();
+            Grid<BidsSearchResponse> bidGrid = new Grid<BidsSearchResponse>();
 
             var param = new DynamicParameters();
             param.Add("@Limit", searchRequest.Limit);
@@ -103,14 +104,17 @@ namespace DataAccess.Data
             param.Add("@StartDate", searchRequest.StartDate);
             param.Add("@EndDate", searchRequest.EndDate);
             param.Add("@UserRole", searchRequest.UserRole);
+            param.Add("@Contractor", searchRequest.Contractor);
+            param.Add("@Status", searchRequest.Status);
+            param.Add("@SubmittedDate", searchRequest.SubmittedDate);
             param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            var results = await _db.LoadData<TenderDBModel, dynamic>("dbo.spTenders_Get", param);
+            var results = await _db.LoadData<BidsSearchResponse, dynamic>("dbo.spBids_Get", param);
 
-            tenderGrid.Total = param.Get<int>("@NoOfRecords");
-            tenderGrid.Data = results;
+            bidGrid.Total = param.Get<int>("@NoOfRecords");
+            bidGrid.Data = results;
 
-            return tenderGrid;
+            return bidGrid;
         }
 
         //public Task<int> SetTenderClose(int id)

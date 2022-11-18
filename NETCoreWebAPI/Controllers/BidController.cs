@@ -127,28 +127,28 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("search")]
-        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
-        //public async Task<IActionResult> Tenders([FromBody] TenderSearchRequest searchRequest)
-        //{
-        //    try
-        //    {
-        //        Grid<TenderDBModel> tenders = await _tenderData.GetTenders(searchRequest);
+        [HttpPost]
+        [Route("search")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> Bids([FromBody] BidsSearchRequest searchRequest)
+        {
+            try
+            {
+                Grid<BidsSearchResponse> bids = await _bidData.GetBids(searchRequest);
 
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Tenders = tenders.Data,
-        //            Total = tenders.Total
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Bids = bids.Data,
+                    Total = bids.Total
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
         //[HttpGet]
         //[Route("hold/{id}")]
