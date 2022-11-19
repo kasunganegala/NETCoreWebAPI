@@ -79,6 +79,7 @@ namespace NETCoreWebAPI
             services.AddSingleton<IUserData, UserData>();
             services.AddSingleton<ITenderData, TenderData>();
             services.AddSingleton<IBidData, BidData>();
+            services.AddSingleton<ICostData, CostData>();
 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //   options.UseSqlServer(Configuration.GetConnectionString("ConStr"))

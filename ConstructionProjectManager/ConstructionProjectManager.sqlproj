@@ -63,6 +63,7 @@
     <Folder Include="dbo\StoredProcedures\Tender" />
     <Folder Include="dbo\Udt" />
     <Folder Include="dbo\StoredProcedures\Bid" />
+    <Folder Include="dbo\StoredProcedures\Cost" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
@@ -98,6 +99,11 @@
     <Build Include="dbo\StoredProcedures\Bid\spBids_Get.sql" />
     <Build Include="dbo\StoredProcedures\Bid\spBidsExport_Get.sql" />
     <Build Include="dbo\StoredProcedures\Tender\spTendersExport_Get.sql" />
+    <Build Include="dbo\Tables\Meterials.sql" />
+    <Build Include="dbo\Tables\UOM.sql" />
+    <Build Include="dbo\Tables\Equipments.sql" />
+    <Build Include="dbo\Tables\Labours.sql" />
+    <Build Include="dbo\StoredProcedures\Cost\spCostEquipments_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />
