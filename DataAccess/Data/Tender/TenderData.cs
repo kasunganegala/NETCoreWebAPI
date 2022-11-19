@@ -98,9 +98,9 @@ namespace DataAccess.Data
             return tenderTaskData;
         }
 
-        public async Task<Grid<TenderDBModel>> GetTenders(TenderSearchRequest searchRequest)
+        public async Task<Grid<TenderSearchResponse>> GetTenders(TenderSearchRequest searchRequest)
         {
-            Grid<TenderDBModel> tenderGrid = new Grid<TenderDBModel>();
+            Grid<TenderSearchResponse> tenderGrid = new Grid<TenderSearchResponse>();
 
             var param = new DynamicParameters();
             param.Add("@Limit", searchRequest.Limit);
@@ -113,7 +113,28 @@ namespace DataAccess.Data
             param.Add("@UserRole", searchRequest.UserRole);
             param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            var results = await _db.LoadData<TenderDBModel, dynamic>("dbo.spTenders_Get", param);
+            var results = await _db.LoadData<TenderSearchResponse, dynamic>("dbo.spTenders_Get", param);
+
+            tenderGrid.Total = param.Get<int>("@NoOfRecords");
+            tenderGrid.Data = results;
+
+            return tenderGrid;
+        }
+
+        public async Task<Grid<TenderSearchResponse>> GetTendersExport(TenderSearchRequest searchRequest)
+        {
+            Grid<TenderSearchResponse> tenderGrid = new Grid<TenderSearchResponse>();
+
+            var param = new DynamicParameters();
+            param.Add("@Customer", searchRequest.Customer);
+            param.Add("@TenderType", searchRequest.TenderType);
+            param.Add("@ProjectType", searchRequest.ProjectType);
+            param.Add("@StartDate", searchRequest.StartDate);
+            param.Add("@EndDate", searchRequest.EndDate);
+            param.Add("@UserRole", searchRequest.UserRole);
+            param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            var results = await _db.LoadData<TenderSearchResponse, dynamic>("dbo.spTendersExport_Get", param);
 
             tenderGrid.Total = param.Get<int>("@NoOfRecords");
             tenderGrid.Data = results;

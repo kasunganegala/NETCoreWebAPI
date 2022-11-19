@@ -1,8 +1,6 @@
-﻿CREATE PROCEDURE [dbo].[spTenders_Get]
+﻿CREATE PROCEDURE [dbo].[spTendersExport_Get]
 (
 	@NoOfRecords			INT OUT
-	,@Offset				INT = 0
-	,@Limit					INT = 3
 	,@Customer				INT = 0
 	,@TenderType			INT = 0
 	,@ProjectType			INT = 0
@@ -24,7 +22,7 @@ BEGIN
 		)
 
 	SELECT 
-		u.[Id]
+	   u.[Id]
       ,u.[Name]
       ,u.[Description]
       ,u.[TenderType]
@@ -46,5 +44,4 @@ BEGIN
 		AND ((u.StartDateTime = @StartDate AND @StartDate != NULL) OR @StartDate IS NULL)
 		AND ((u.EndDateTime = @EndDate AND @EndDate != NULL) OR @EndDate IS NULL)
 	ORDER BY u.Id ASC
-	OFFSET (@Offset) ROWS FETCH NEXT @Limit ROWS ONLY;	
 END

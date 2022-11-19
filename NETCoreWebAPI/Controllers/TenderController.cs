@@ -133,9 +133,39 @@ namespace NETCoreWebAPI.Controllers
         {
             try
             {
-                Grid<TenderDBModel> tenders = await _tenderData.GetTenders(searchRequest);
+                Grid<TenderSearchResponse> tenders = await _tenderData.GetTenders(searchRequest);
 
-                foreach (TenderDBModel tender in tenders.Data)
+                foreach (TenderSearchResponse tender in tenders.Data)
+                {
+                    List<BidDBModel> bids = await _tenderData.GetTenderBids((int)tender.Id);
+
+                    tender.BidsCount = bids.Count;
+                }
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Tenders = tenders.Data,
+                    Total = tenders.Total
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("export")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> TendersExport([FromBody] TenderSearchRequest searchRequest)
+        {
+            try
+            {
+                Grid<TenderSearchResponse> tenders = await _tenderData.GetTendersExport(searchRequest);
+
+                foreach (TenderSearchResponse tender in tenders.Data)
                 {
                     List<BidDBModel> bids = await _tenderData.GetTenderBids((int)tender.Id);
 

@@ -150,6 +150,29 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Export")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> BidsExport([FromBody] BidsSearchRequest searchRequest)
+        {
+            try
+            {
+                Grid<BidsSearchResponse> bids = await _bidData.GetBidsExport(searchRequest);
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Bids = bids.Data,
+                    Total = bids.Total
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         //[HttpGet]
         //[Route("hold/{id}")]
         //[Authorize(Roles = "ProjectManager")]

@@ -117,6 +117,30 @@ namespace DataAccess.Data
             return bidGrid;
         }
 
+        public async Task<Grid<BidsSearchResponse>> GetBidsExport(BidsSearchRequest searchRequest)
+        {
+            Grid<BidsSearchResponse> bidGrid = new Grid<BidsSearchResponse>();
+
+            var param = new DynamicParameters();
+            param.Add("@Customer", searchRequest.Customer);
+            param.Add("@TenderType", searchRequest.TenderType);
+            param.Add("@ProjectType", searchRequest.ProjectType);
+            param.Add("@StartDate", searchRequest.StartDate);
+            param.Add("@EndDate", searchRequest.EndDate);
+            param.Add("@UserRole", searchRequest.UserRole);
+            param.Add("@Contractor", searchRequest.Contractor);
+            param.Add("@Status", searchRequest.Status);
+            param.Add("@SubmittedDate", searchRequest.SubmittedDate);
+            param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            var results = await _db.LoadData<BidsSearchResponse, dynamic>("dbo.spBids_Get", param);
+
+            bidGrid.Total = param.Get<int>("@NoOfRecords");
+            bidGrid.Data = results;
+
+            return bidGrid;
+        }
+
         //public Task<int> SetTenderClose(int id)
         //{
         //    var param = new DynamicParameters();

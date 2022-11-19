@@ -1,8 +1,6 @@
-﻿CREATE PROCEDURE [dbo].[spBids_Get]
+﻿CREATE PROCEDURE [dbo].[spBidsExport_Get]
 (
 	@NoOfRecords			INT OUT
-	,@Offset				INT = 0
-	,@Limit					INT = 6
 	,@Customer				INT = 0
 	,@TenderType			INT = 0
 	,@ProjectType			INT = 0
@@ -61,6 +59,4 @@ BEGIN
 		AND ((b.Status = @Status AND @Status != 'All') OR @Status = 'All')
 		AND ((b.ContractorId = @Contractor AND @Contractor != 0) OR @Contractor = 0)
 
-	ORDER BY b.Id ASC
-	OFFSET (@Offset) ROWS FETCH NEXT @Limit ROWS ONLY;	
 END
