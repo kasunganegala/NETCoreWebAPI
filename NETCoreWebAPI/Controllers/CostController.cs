@@ -36,7 +36,7 @@ namespace NETCoreWebAPI.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     
     public class CostController : ControllerBase
     {
@@ -55,79 +55,71 @@ namespace NETCoreWebAPI.Controllers
 
         }
 
-        //[HttpGet]
-        //[Route("uom")]
-        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
-        //public async Task<IActionResult> GetUOMList()
-        //{
-        //    try
-        //    {
-        //        BidDBModel bid = await _costData.GetBid(0);
+        [HttpGet]
+        [Route("uom")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> GetUOMList()
+        {
+            try
+            {
+                List<UOMResponse> uom = await _costData.GetUOMList();
 
-        //        if (bid == null)
-        //        {
-        //            return Ok(new
-        //            {
-        //                Errors = Array.Empty<Array>(),
-        //                Status = "Bid Not Found",
-        //                Bid = new { }
-        //            });
-        //        }
+                if (uom == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "UOMs Not Found",
+                        UOM = new { }
+                    });
+                }
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    UOM = uom
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
-        //        List<BidTasksDBModel> bidTasks = await _costData.GetBidTasks(id);
-        //        bid.BidTasks = bidTasks;
+        [HttpGet]
+        [Route("materials")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> GetMaterialsList()
+        {
+            try
+            {
+                List<MaterialsResponse> materils = await _costData.GetMaterialsList();
 
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Bid = bid
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
-
-        //[HttpGet]
-        //[Route("materials")]
-        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
-        //public async Task<IActionResult> GetMaterialsList()
-        //{
-        //    try
-        //    {
-        //        BidDBModel bid = await _costData.GetBid(0);
-
-        //        if (bid == null)
-        //        {
-        //            return Ok(new
-        //            {
-        //                Errors = Array.Empty<Array>(),
-        //                Status = "Bid Not Found",
-        //                Bid = new { }
-        //            });
-        //        }
-
-        //        List<BidTasksDBModel> bidTasks = await _costData.GetBidTasks(0);
-        //        bid.BidTasks = bidTasks;
-
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Bid = bid
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                if (materils == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Materials Not Found",
+                        Materials = new { }
+                    });
+                }
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Materials = materils
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
         [HttpGet]
         [Route("equipments")]
-        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
         public async Task<IActionResult> GetEquipmentList()
         {
             try
@@ -156,40 +148,36 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("labours")]
-        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
-        //public async Task<IActionResult> GetLabourList()
-        //{
-        //    try
-        //    {
-        //        BidDBModel bid = await _costData.GetBid(0);
+        [HttpGet]
+        [Route("labours")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> GetLabourList()
+        {
+            try
+            {
+                List<LabourResponse> labours = await _costData.GetLabourList();
 
-        //        if (bid == null)
-        //        {
-        //            return Ok(new
-        //            {
-        //                Errors = Array.Empty<Array>(),
-        //                Status = "Bid Not Found",
-        //                Bid = new { }
-        //            });
-        //        }
-
-        //        List<BidTasksDBModel> bidTasks = await _costData.GetBidTasks(0);
-        //        bid.BidTasks = bidTasks;
-
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Bid = bid
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                if (labours == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Labours Not Found",
+                        Labours = new { }
+                    });
+                }
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Labours = labours
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
     }
 }

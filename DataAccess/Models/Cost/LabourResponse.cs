@@ -10,18 +10,20 @@ namespace DataAccess.Models.Cost
     public class LabourResponse
     {
         public int? Id { get; set; }
-        public int? TenderId { get; set; }
-        public int? ContractorId { get; set; }
         public string? Name { get; set; }
-        public string? CustomerName { get; set; }
-        public string? ContractorName { get; set; }
-        public DateTime? StartDateTime { get; set; }
-        public DateTime? EndDateTime { get; set; }
-        public bool IsSubmitted { get; set; }
-        public string? Status { get; set; }
-        public string? Comment { get; set; }
-        public string? CreatedByUsername { get; set; }
-        public DateTime? CreatedDateTime { get; set; }
-        public DateTime? LastModifiedDateTime { get; set; }
+        public string? Description { get; set; }
+
+        public int? UOMId { get; set; }
+        public string? UOMName { get; set; }
+        public string? UOM { get; set; }
+        public string? UOMType { get; set; }
+        public string? UOMDescription { get; set; }
+        public bool UOMIsCost { get; set; }
+        public bool UOMUsedInMaterials { get; set; }
+        public bool UOMUsedInEquipment { get; set; }
+        public bool UOMUsedInLabour { get; set; }
+
+        public string? UnitMeasurementUOM { get; set; }
+        public string? UnitMeasurementType { get; set; }
     }
 }
