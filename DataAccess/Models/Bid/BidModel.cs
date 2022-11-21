@@ -22,5 +22,8 @@ namespace DataAccess.Models.Bid
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? LastModifiedDateTime { get; set; }
         public List<BidTasksDBModel>? BidTasks { get; set; }
+        public List<BidTasksDBModel>? Materials { get; set; }
+        public List<BidTasksDBModel>? Equipments { get; set; }
+        public List<BidTasksDBModel>? Labours { get; set; }
     }
 }
