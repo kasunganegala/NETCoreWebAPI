@@ -105,8 +105,8 @@
     <Build Include="dbo\Tables\Labours.sql" />
     <Build Include="dbo\StoredProcedures\Cost\spCostEquipments_Get.sql" />
     <Build Include="dbo\StoredProcedures\Cost\spCostUOM_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Cost\spCostLabour_Get.sql" />
     <Build Include="dbo\StoredProcedures\Cost\spCostMaterial_Get.sql" />
-    <Build Include="dbo\StoredProcedures\Cost\Copy of spCostMaterial_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

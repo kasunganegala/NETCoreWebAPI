@@ -1,11 +1,11 @@
-﻿CREATE PROCEDURE [dbo].[spCostLabour_Get]
+﻿CREATE PROCEDURE [dbo].[spCostMaterial_Get]
 AS
 BEGIN
 
 	SELECT 
-	   L.[Id]
-      ,L.[Name]
-      ,L.[Description]
+	   M.[Id]
+      ,M.[Name]
+      ,M.[Description]
 
 	  ,UOM.[Id] AS [UOMId]
       ,UOM.[Name] AS [UOMName]
@@ -21,10 +21,10 @@ BEGIN
       ,UnitMeasurement.[UOM] AS [UnitMeasurementUOM]
       ,UnitMeasurement.[Type] AS [UnitMeasurementType]
 
-	FROM [dbo].[Labours] L
-		LEFT JOIN dbo.UOM AS UOM ON UOM.Id = L.UOM
+	FROM [dbo].[Meterials] M
+		LEFT JOIN dbo.UOM AS UOM ON UOM.Id = M.UOM
         LEFT JOIN dbo.UOM AS UnitMeasurement ON UnitMeasurement.Id = UOM.[MeasurementId]
 
-    ORDER BY L.Name 
+    ORDER BY M.Name 
 
 END
