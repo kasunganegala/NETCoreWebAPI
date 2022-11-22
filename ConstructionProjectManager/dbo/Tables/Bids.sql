@@ -12,6 +12,16 @@
 	[CreatedByUsername] NVARCHAR(20) NULL,
 	[CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 
     [LastModifiedDateTime] DATETIME NULL,
+	[MaterialCostTotal] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[EquipmentCostTotal] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[LabourCostTotal] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[Tax] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[CostTotal] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[MaterialsProfit] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[EquipmentsProfit] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[LaboursProfit] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+	[ProfitTotal] DECIMAL(18, 2) NOT NULL DEFAULT 0,
+
 
 	--CONSTRAINT [FK_Bidss_Users] FOREIGN KEY ([CreatedByUsername]) REFERENCES [Users]([Id]),
 	CONSTRAINT [FK_Bids_Tenders] FOREIGN KEY ([TenderId]) REFERENCES [Tenders]([Id])

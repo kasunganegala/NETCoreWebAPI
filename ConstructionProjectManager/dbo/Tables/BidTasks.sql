@@ -3,7 +3,7 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
 	[BidId] INT NOT NULL,
 	[TaskId] INT NOT NULL,
-	[ParentTaskkId] INT NULL, 
+	[ParentTaskId] INT NULL, 
 	[Task] NVARCHAR(MAX) NOT NULL, 
 	[CreatedByUsername] NVARCHAR(20) NULL,
 	[StartDateTime] DATETIME NULL,

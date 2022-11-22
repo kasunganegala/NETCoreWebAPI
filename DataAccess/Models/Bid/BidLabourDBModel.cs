@@ -10,6 +10,8 @@ namespace DataAccess.Models.Cost
     public class BidLabourDBModel
     {
         public int? Id { get; set; }
+        public int? BidId { get; set; }
+        public int? LabourId { get; set; }
         public string? Name { get; set; }
         public double? UnitCost { get; set; }
         public int? UOMId { get; set; }
@@ -17,5 +19,7 @@ namespace DataAccess.Models.Cost
         public double? Profit { get; set; }
         public double? TotalCost { get; set; }
         public string? CreatedByUsername { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public DateTime? LastModifiedDateTime { get; set; }
     }
 }

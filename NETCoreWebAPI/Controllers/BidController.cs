@@ -111,8 +111,15 @@ namespace NETCoreWebAPI.Controllers
                     });
                 }
 
-                List<BidTasksDBModel> bidTasks = await _bidData.GetBidTasks(id);
-                bid.BidTasks = bidTasks;
+                bid.BidTasks = await _bidData.GetBidTasks(id);
+                var zEquipments = await _bidData.GetBidEquipments(id);
+                var zMaterials = await _bidData.GetBidMaterials(id);
+                var zLabours = await _bidData.GetBidLabours(id); 
+                
+                
+                bid.Equipments = BidBusinessRules.NormalizeEquipments(zEquipments);
+                bid.Materials = BidBusinessRules.NormalizeMaterials(zMaterials);
+                bid.Labours = BidBusinessRules.NormalizeLabours(zLabours);
 
                 return Ok(new
                 {

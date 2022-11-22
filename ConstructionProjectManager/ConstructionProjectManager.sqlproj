@@ -80,7 +80,6 @@
     <Build Include="dbo\Tables\TenderTasks.sql" />
     <Build Include="dbo\Tables\Bids.sql" />
     <Build Include="dbo\Tables\BidTasks.sql" />
-    <Build Include="dbo\Tables\BidResourcesCost.sql" />
     <Build Include="dbo\Tables\ProjectType.sql" />
     <Build Include="dbo\Tables\TenderType.sql" />
     <Build Include="dbo\StoredProcedures\Tender\spTender_Insert.sql" />
@@ -107,6 +106,15 @@
     <Build Include="dbo\StoredProcedures\Cost\spCostUOM_Get.sql" />
     <Build Include="dbo\StoredProcedures\Cost\spCostLabour_Get.sql" />
     <Build Include="dbo\StoredProcedures\Cost\spCostMaterial_Get.sql" />
+    <Build Include="dbo\Tables\BidMaterials.sql" />
+    <Build Include="dbo\Tables\BidLabours.sql" />
+    <Build Include="dbo\Tables\BidEquipments.sql" />
+    <Build Include="dbo\Udt\udtBidMaterialsType.sql" />
+    <Build Include="dbo\Udt\udtBidEquipmentsType.sql" />
+    <Build Include="dbo\Udt\udtBidLaboursType.sql" />
+    <Build Include="dbo\StoredProcedures\Bid\spBidLabours_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Bid\spBidEquipments_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Bid\spBidMaterials_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />
