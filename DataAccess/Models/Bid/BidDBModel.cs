@@ -13,7 +13,8 @@ namespace DataAccess.Models
         public int? Id { get; set; }
         public int? TenderId { get; set; }
         public int? ContractorId { get; set; }
-        public string Name { get; set; }
+		public string? ContractorName { get; set; }
+		public string Name { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
         public bool IsSubmitted { get; set; }
@@ -35,5 +36,9 @@ namespace DataAccess.Models
         public double? EquipmentsProfit { get; set; }
         public double? LaboursProfit { get; set; }
         public double? ProfitTotal { get; set; }
-    }
+        public string? TenderName { get; set; }
+        public int? CustomerId { get; set; }
+        public int? TenderType { get; set; }
+		public int? ProjectType { get; set; }
+	}
 }
