@@ -16,7 +16,8 @@ namespace DataAccess.Data
         public Task<List<BidEquipmentDBModel>?> GetBidEquipments(int id);
         public Task<Grid<BidsSearchResponse>> GetBids(BidsSearchRequest searchRequest);
         public Task<Grid<BidsSearchResponse>> GetBidsExport(BidsSearchRequest searchRequest);
-        //Task<int> SetTenderClose(int id);
+        public Task<int> ApproveBid(int id);
+        public Task<int> RejectBid(int id);
         //Task<int> SetTenderHold(int id);
     }
 }

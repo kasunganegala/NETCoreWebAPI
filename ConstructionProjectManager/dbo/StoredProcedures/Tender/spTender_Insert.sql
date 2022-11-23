@@ -44,7 +44,7 @@ BEGIN TRY
 			DECLARE @TenderId AS INT = SCOPE_IDENTITY();
 
 			UPDATE t
-			SET t.[Name] = CONCAT('T', FORMAT(@TenderId, '0000'), ' ', c.Name)
+			SET t.[Name] = CONCAT('T', FORMAT(@TenderId, '0000'))
 			FROM Tenders t
 			INNER JOIN Customers AS c ON c.Id = t.CustomerId
 			WHERE t.Id = @TenderId

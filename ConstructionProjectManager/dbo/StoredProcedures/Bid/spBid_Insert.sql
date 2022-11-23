@@ -54,7 +54,7 @@ BEGIN TRY
 			DECLARE @BidId AS INT = SCOPE_IDENTITY();
 
 			UPDATE b
-			SET b.[Name] = CONCAT('B', FORMAT(@BidId, '0000'), ' ', con.Name)
+			SET b.[Name] = CONCAT('B', FORMAT(@BidId, '0000'))
 			FROM Bids b
 				INNER JOIN Contractors AS con ON con.Id = b.ContractorId
 			WHERE b.Id = @BidId

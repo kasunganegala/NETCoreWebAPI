@@ -180,27 +180,37 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("hold/{id}")]
-        //[Authorize(Roles = "ProjectManager")]
-        //public async Task<IActionResult> Hold(int id)
-        //{
-        //    try
-        //    {
-        //        int tenderId = await _tenderData.SetTenderHold(id);
+        [HttpGet]
+        [Route("{id}/approve")]
+        [Authorize(Roles = "ProjectManager")]
+        public async Task<IActionResult> Approve(int id)
+        {
+            try
+            {
+                int? projectId = await _bidData.ApproveBid(id);
 
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Tender = tenderId
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                if (projectId == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Project Creation failed",
+                        Project = projectId
+                    });
+                }
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Project = projectId
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
         //[HttpGet]
         //[Route("close/{id}")]

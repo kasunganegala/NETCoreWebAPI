@@ -298,23 +298,19 @@ namespace DataAccess.Data
             return bidGrid;
         }
 
-        //public Task<int> SetTenderClose(int id)
-        //{
-        //    var param = new DynamicParameters();
-        //    param.Add("@Id", id);
+        public Task<int> ApproveBid(int id)
+        {
+            var param = new DynamicParameters();
+            param.Add("@Id", id);
 
-        //    var result = _db.SaveData<int, DynamicParameters>("dbo.spTenderClose_Get", param);
+            return _db.SaveData<int, DynamicParameters>("dbo.spBidApproveProject_Get", param);
+        }
+        public Task<int> RejectBid(int id)
+        {
+            var param = new DynamicParameters();
+            param.Add("@Id", id);
 
-        //    return result;
-        //}
-        //public Task<int> SetTenderHold(int id)
-        //{
-        //    var param = new DynamicParameters();
-        //    param.Add("@Id", id);
-
-        //    var result = _db.SaveData<int, DynamicParameters>("dbo.spTenderHold_Get", param);
-
-        //    return result;
-        //}
+            return _db.SaveData<int, DynamicParameters>("dbo.spBidRejectBid_Get", param);
+        }
     }
 }

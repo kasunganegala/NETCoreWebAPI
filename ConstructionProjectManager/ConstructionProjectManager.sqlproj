@@ -64,14 +64,10 @@
     <Folder Include="dbo\Udt" />
     <Folder Include="dbo\StoredProcedures\Bid" />
     <Folder Include="dbo\StoredProcedures\Cost" />
+    <Folder Include="dbo\StoredProcedures\Users" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\StoredProcedures\spUsers_GetAll.sql" />
-    <Build Include="dbo\StoredProcedures\spUsers_Get.sql" />
-    <Build Include="dbo\StoredProcedures\spUser_Delete.sql" />
-    <Build Include="dbo\StoredProcedures\spUser_Insert.sql" />
-    <Build Include="dbo\StoredProcedures\spUser_Update.sql" />
     <Build Include="dbo\StoredProcedures\Authentication\spGet_User_Login.sql" />
     <Build Include="dbo\Tables\UserRoles.sql" />
     <Build Include="dbo\StoredProcedures\Authentication\spGet_User_Roles.sql" />
@@ -115,6 +111,17 @@
     <Build Include="dbo\StoredProcedures\Bid\spBidLabours_Get.sql" />
     <Build Include="dbo\StoredProcedures\Bid\spBidEquipments_Get.sql" />
     <Build Include="dbo\StoredProcedures\Bid\spBidMaterials_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Bid\spBidApproveProject_Get.sql" />
+    <Build Include="dbo\Tables\Projects.sql" />
+    <Build Include="dbo\Tables\ProjectTasks.sql" />
+    <Build Include="dbo\Tables\ProjectMaterials.sql" />
+    <Build Include="dbo\Tables\ProjectLabours.sql" />
+    <Build Include="dbo\Tables\ProjectEquipments.sql" />
+    <Build Include="dbo\StoredProcedures\Users\spUser_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Users\spUser_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Users\spUser_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Users\spUsers_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Users\spUsers_GetAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />
