@@ -65,6 +65,7 @@
     <Folder Include="dbo\StoredProcedures\Bid" />
     <Folder Include="dbo\StoredProcedures\Cost" />
     <Folder Include="dbo\StoredProcedures\Users" />
+    <Folder Include="dbo\StoredProcedures\Project" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
@@ -122,6 +123,15 @@
     <Build Include="dbo\StoredProcedures\Users\spUser_Update.sql" />
     <Build Include="dbo\StoredProcedures\Users\spUsers_Get.sql" />
     <Build Include="dbo\StoredProcedures\Users\spUsers_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProject_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProject_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectApproveProject_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectEquipments_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectLabours_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectMaterials_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjects_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectsExport_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTasks_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />
