@@ -15,6 +15,8 @@ namespace DataAccess.Data
         public Task<List<ProjectEquipmentDBModel>?> GetProjectEquipments(int id);
         public Task<Grid<ProjectsSearchResponse>> GetProjects(ProjectsSearchRequest searchRequest);
         public Task<Grid<ProjectsSearchResponse>> GetProjectsExport(ProjectsSearchRequest searchRequest);
-       
+        public Task<List<ProjectTasksDBModel>?> UpdateTasks(ProjectsUpdateTasksRequest updateRequest);
+
+
     }
 }

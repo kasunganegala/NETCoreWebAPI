@@ -131,6 +131,8 @@
     <Build Include="dbo\StoredProcedures\Project\spProjects_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectsExport_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectTasks_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTasks_Update.sql" />
+    <Build Include="dbo\Udt\udtProjectTasksType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

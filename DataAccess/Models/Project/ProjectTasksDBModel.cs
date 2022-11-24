@@ -19,5 +19,7 @@ namespace DataAccess.Models.Project
         public DateTime? EndDate { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime? LastModifiedDateTime { get; set; }
-	}
+        public string? Status { get; set; }
+        public bool? IsDeleted { get; set; }
+    }
 }

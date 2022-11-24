@@ -29,8 +29,15 @@ namespace DataAccess.Data
                 "dbo.spProject_Get",
                 new { Id = id });
 
-            var project =  results.FirstOrDefault();
+            ProjectDBModel project =  results.FirstOrDefault();
 
+            if (project != null) {
+                project.ProjectTasks = await GetProjectTasks(id);
+                project.Materials = await GetProjectMaterials(id);
+                project.Labours = await GetProjectLabours(id);
+                project.Equipments = await GetProjectEquipments(id);
+            }
+            
             return project;
         }
 
@@ -70,6 +77,23 @@ namespace DataAccess.Data
                 new { Id = id });
 
             return results.ToList();            
+        }
+
+        public async Task<List<ProjectTasksDBModel>?> UpdateTasks(ProjectsUpdateTasksRequest updateRequest)
+        {
+            DataTable dt = GenerateProjectTasksDataTable(updateRequest.ProjectTasks);
+            
+            var param = new DynamicParameters();
+            param.Add("@ProjectTasks", dt, DbType.Object);
+            param.Add("@ProjectId", updateRequest.ProjectId);
+
+            var isProcessed =  _db.SaveData<bool, DynamicParameters>("dbo.spProjectTasks_Update", param);
+
+            if ((bool)isProcessed.Result) {
+                return await GetProjectTasks((int)updateRequest.ProjectId);
+            }
+
+            return null;
         }
 
         public async Task<Grid<ProjectsSearchResponse>> GetProjects(ProjectsSearchRequest searchRequest)
@@ -135,6 +159,40 @@ namespace DataAccess.Data
             param.Add("@Id", id);
 
             return _db.SaveData<int, DynamicParameters>("dbo.spProjectRejectProject_Get", param);
+        }
+
+        private DataTable GenerateProjectTasksDataTable(List<ProjectTasksDBModel>? List)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("ProjectId");
+            dt.Columns.Add("TaskId");
+            dt.Columns.Add("ParentTaskId");
+            dt.Columns.Add("Task");
+            dt.Columns.Add("CreatedByUsername");
+            dt.Columns.Add("StartDateTime");
+            dt.Columns.Add("EndDateTime");
+            dt.Columns.Add("CreatedDateTime");
+            dt.Columns.Add("LastModifiedDateTime");
+            dt.Columns.Add("Status");
+
+            foreach (ProjectTasksDBModel item in List)
+            {
+                dt.Rows.Add(
+                    item.Id,
+                    item.ProjectId,
+                    item.TaskId,
+                    item.ParentTaskId,
+                    item.Task,
+                    item.CreatedByUsername,
+                    item.StartDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    item.EndDate?.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    item.CreatedDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    item.Status);
+            }
+
+            return dt;
         }
     }
 }

@@ -2,7 +2,22 @@
 	@Id INT
 AS
 BEGIN
-	SELECT *
-	FROM dbo.BidLabours b
-	WHERE b.[BidId] = @Id
+	SELECT 
+		[Id]
+      ,[ProjectId]
+      ,[LabourId]
+      ,[Name]
+      ,[UOMId]
+      ,[EstimatedUnitCost]
+      ,[EstimatedQuantity]
+      ,[EstimatedTotalCost]
+      ,[UnitCost]
+      ,[Quantity]
+      ,[TotalCost]
+      ,[Profit]
+      ,[CreatedByUsername]
+      ,[CreatedDateTime]
+      ,[LastModifiedDateTime]
+	FROM dbo.[ProjectLabours] pl
+	WHERE pl.ProjectId = @Id
 END

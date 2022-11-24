@@ -3,16 +3,19 @@
 AS
 BEGIN
 	SELECT 
-		[Id]
-      ,[BidId]
+	   [Id]
+      ,[ProjectId]
       ,[TaskId]
       ,[ParentTaskId]
       ,[Task]
       ,[CreatedByUsername]
-      ,[StartDateTime] AS [StartDate]
+      ,[StartDateTime]  AS [StartDate]
       ,[EndDateTime] AS [EndDate]
       ,[CreatedDateTime]
       ,[LastModifiedDateTime]
-	FROM dbo.[BidTasks] b
-	WHERE b.[BidId] = @Id
+      ,[Status]
+      ,[IsDeleted]
+	FROM dbo.[ProjectTasks] pt
+	WHERE pt.ProjectId = @Id
+        AND IsDeleted = 0
 END
