@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spBidsExport_Get]
+﻿CREATE PROCEDURE [dbo].[spProjectsExport_Get]
 (
 	@NoOfRecords			INT OUT
 	,@Customer				INT = 0

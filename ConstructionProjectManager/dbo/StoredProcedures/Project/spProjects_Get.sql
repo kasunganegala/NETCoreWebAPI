@@ -21,7 +21,7 @@ BEGIN
 	FROM [dbo].[Projects] AS p
 		INNER JOIN [dbo].[Bids] AS b ON b.Id = p.BidId
 		INNER JOIN [dbo].[Tenders] AS t ON t.Id = b.TenderId
-		INNER JOIN [dbo].Customers AS CUS ON CUS.Id = t.CustomerId
+		INNER JOIN [dbo].Customers AS CUS ON CUS.Id = p.CustomerId
 		INNER JOIN [dbo].Contractors AS CON ON CON.Id = p.ContractorId
 
 	WHERE ((t.CustomerId = @Customer AND @Customer != 0) OR @Customer = 0)
@@ -36,8 +36,10 @@ BEGIN
 
 	SELECT 
 	   p.[Id]
-      ,p.[BidId]
+	  ,t.Id AS [TenderId]
+      ,p.[BidId] 
       ,p.[ContractorId]
+	  ,p.[CustomerId]
       ,p.[Name]
       ,p.[StartDateTime]
       ,p.[EndDateTime]
@@ -52,7 +54,7 @@ BEGIN
 	FROM [dbo].[Projects] AS p
 		INNER JOIN [dbo].[Bids] AS b ON b.Id = p.BidId
 		INNER JOIN [dbo].[Tenders] AS t ON t.Id = b.TenderId
-		INNER JOIN [dbo].Customers AS CUS ON CUS.Id = t.CustomerId
+		INNER JOIN [dbo].Customers AS CUS ON CUS.Id = p.CustomerId
 		INNER JOIN [dbo].Contractors AS CON ON CON.Id = p.ContractorId
 	WHERE ((t.CustomerId = @Customer AND @Customer != 0) OR @Customer = 0)
 		AND ((t.TenderType = @TenderType AND @TenderType != 0) OR @TenderType = 0)

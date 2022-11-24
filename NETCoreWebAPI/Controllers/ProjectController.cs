@@ -37,7 +37,7 @@ namespace NETCoreWebAPI.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     
     public class ProjectController : ControllerBase
     {
@@ -94,7 +94,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
         public async Task<IActionResult> Project(int id)
         {
             try
@@ -126,7 +126,7 @@ namespace NETCoreWebAPI.Controllers
 
         [HttpPost]
         [Route("search")]
-        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        //[Authorize(Roles = "ProjectManager,Client,Contractor")]
         public async Task<IActionResult> Projects([FromBody] ProjectsSearchRequest searchRequest)
         {
             try

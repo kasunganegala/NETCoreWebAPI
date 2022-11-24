@@ -11,8 +11,10 @@ namespace DataAccess.Models.Project
     {
         public int? Id { get; set; }
         public int? TenderId { get; set; }
-        public int? ContractorId { get; set; }
-        public string? Name { get; set; }
+		public int? BidId { get; set; }
+		public int? ContractorId { get; set; }
+		public int? CustomerId { get; set; }
+		public string? Name { get; set; }
         public string? CustomerName { get; set; }
         public string? ContractorName { get; set; }
         public DateTime? StartDateTime { get; set; }

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spBidEquipments_Get]
+﻿CREATE PROCEDURE [dbo].[spProjectEquipments_Get]
 	@Id INT
 AS
 BEGIN

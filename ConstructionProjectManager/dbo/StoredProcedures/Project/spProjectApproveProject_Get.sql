@@ -23,6 +23,7 @@ BEGIN
 	INSERT INTO Projects
        ([BidId]
       ,[ContractorId]
+      ,[CustomerId]
       ,[Name]
 
       ,[EstimatedStartDateTime]
@@ -54,12 +55,13 @@ BEGIN
       SELECT 
        b.[Id]
       ,b.[ContractorId]
+      ,T.CustomerId
       ,'Temp Name'
 
       ,b.[StartDateTime]
       ,b.[EndDateTime]
-      ,b.[StartDateTime]
-      ,b.[EndDateTime]
+      ,null
+      ,null
 
       ,0
       ,'New'
@@ -83,6 +85,7 @@ BEGIN
       ,b.[LaboursProfit]
       ,b.[ProfitTotal]
   FROM [dbo].[Bids] b
+    INNER JOIN Tenders AS T ON T.Id = b.TenderId
   WHERE b.Id = @Id
   DECLARE @ProjectId AS INT = SCOPE_IDENTITY();
 

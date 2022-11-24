@@ -3,12 +3,13 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
 	[BidId] INT NOT NULL, 
 	[ContractorId] INT NOT NULL, 
+	[CustomerId] INT NOT NULL DEFAULT(0), 
 	[Name] VARCHAR(MAX) NOT NULL, 
 
 	[EstimatedStartDateTime] DATETIME NOT NULL, 
 	[EstimatedEndDateTime] DATETIME NOT NULL, 
-	[StartDateTime] DATETIME NOT NULL, 
-	[EndDateTime] DATETIME NOT NULL, 
+	[StartDateTime] DATETIME NULL, 
+	[EndDateTime] DATETIME NULL, 
 
 	[IsSubmitted] BIT DEFAULT 0,
 	[Status] NVARCHAR(15) DEFAULT 'New', 
