@@ -114,6 +114,42 @@ namespace DataAccess.Data
             return null;
         }
 
+		public async Task<List<ProjectEquipmentDBModel>?> UpdateEquipments(ProjectsUpdateEquipmentsRequest updateRequest)
+		{
+			DataTable dt = GenerateProjectEquipmentsDataTable(updateRequest.ProjectEquipments);
+
+			var param = new DynamicParameters();
+			param.Add("@ProjectEquipments", dt, DbType.Object);
+			param.Add("@ProjectId", updateRequest.ProjectId);
+
+			var isProcessed = _db.SaveData<bool, DynamicParameters>("dbo.spProjectEquipments_Update", param);
+
+			if ((bool)isProcessed.Result)
+			{
+				return await GetProjectEquipments((int)updateRequest.ProjectId);
+			}
+
+			return null;
+		}
+
+		public async Task<List<ProjectMaterialDBModel>?> UpdateMaterials(ProjectsUpdateMaterialsRequest updateRequest)
+		{
+			DataTable dt = GenerateProjectMaterialsDataTable(updateRequest.ProjectMaterials);
+
+			var param = new DynamicParameters();
+			param.Add("@ProjectMaterials", dt, DbType.Object);
+			param.Add("@ProjectId", updateRequest.ProjectId);
+
+			var isProcessed = _db.SaveData<bool, DynamicParameters>("dbo.spProjectMaterials_Update", param);
+
+			if ((bool)isProcessed.Result)
+			{
+				return await GetProjectMaterials((int)updateRequest.ProjectId);
+			}
+
+			return null;
+		}
+
 		public async Task<Grid<ProjectsSearchResponse>> GetProjects(ProjectsSearchRequest searchRequest)
         {
             Grid<ProjectsSearchResponse> projectGrid = new Grid<ProjectsSearchResponse>();
@@ -252,6 +288,92 @@ namespace DataAccess.Data
 					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
 				    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     0);
+			}
+
+			return dt;
+		}
+		private DataTable GenerateProjectMaterialsDataTable(List<ProjectMaterialDBModel>? List)
+		{
+			DataTable dt = new DataTable();
+			dt.Columns.Add("Id");
+			dt.Columns.Add("ProjectId");
+			dt.Columns.Add("MaterialId");
+			dt.Columns.Add("Name");
+			dt.Columns.Add("UOMId");
+			dt.Columns.Add("EstimatedUnitCost");
+			dt.Columns.Add("EstimatedQuantity");
+			dt.Columns.Add("EstimatedTotalCost");
+			dt.Columns.Add("UnitCost");
+			dt.Columns.Add("Quantity");
+			dt.Columns.Add("TotalCost");
+			dt.Columns.Add("Profit");
+			dt.Columns.Add("CreatedByUsername");
+			dt.Columns.Add("CreatedDateTime");
+			dt.Columns.Add("LastModifiedDateTime");
+			dt.Columns.Add("IsDeleted");
+
+			foreach (ProjectMaterialDBModel item in List)
+			{
+				dt.Rows.Add(
+					item.Id,
+					item.ProjectId,
+					item.MaterialId,
+					item.Name,
+					item.UOMId,
+					item.UnitCost,
+					item.Quantity,
+					item.TotalCost,
+					item.UnitCost,
+					0,
+					0,
+					item.Profit,
+					item.CreatedByUsername,
+					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+					0);
+			}
+
+			return dt;
+		}
+		private DataTable GenerateProjectEquipmentsDataTable(List<ProjectEquipmentDBModel>? List)
+		{
+			DataTable dt = new DataTable();
+			dt.Columns.Add("Id");
+			dt.Columns.Add("ProjectId");
+			dt.Columns.Add("EquipmentId");
+			dt.Columns.Add("Name");
+			dt.Columns.Add("UOMId");
+			dt.Columns.Add("EstimatedUnitCost");
+			dt.Columns.Add("EstimatedQuantity");
+			dt.Columns.Add("EstimatedTotalCost");
+			dt.Columns.Add("UnitCost");
+			dt.Columns.Add("Quantity");
+			dt.Columns.Add("TotalCost");
+			dt.Columns.Add("Profit");
+			dt.Columns.Add("CreatedByUsername");
+			dt.Columns.Add("CreatedDateTime");
+			dt.Columns.Add("LastModifiedDateTime");
+			dt.Columns.Add("IsDeleted");
+
+			foreach (ProjectEquipmentDBModel item in List)
+			{
+				dt.Rows.Add(
+					item.Id,
+					item.ProjectId,
+					item.EquipmentId,
+					item.Name,
+					item.UOMId,
+					item.UnitCost,
+					item.Quantity,
+					item.TotalCost,
+					item.UnitCost,
+					0,
+					0,
+					item.Profit,
+					item.CreatedByUsername,
+					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+					0);
 			}
 
 			return dt;

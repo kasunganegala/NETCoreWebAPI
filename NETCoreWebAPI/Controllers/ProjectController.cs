@@ -193,6 +193,52 @@ namespace NETCoreWebAPI.Controllers
 			}
 		}
 
+		[HttpPost]
+		[Route("update/equipments")]
+		//[Authorize(Roles = "ProjectManager,Client,Contractor")]
+		public async Task<IActionResult> UpdateEquipments([FromBody] ProjectsUpdateEquipmentsRequest updateRequest)
+		{
+			try
+			{
+				List<ProjectEquipmentDBModel> tasks = await _projectData.UpdateEquipments(updateRequest);
+
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success",
+					ProjectEquipments = tasks,
+
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+
+		[HttpPost]
+		[Route("update/materials")]
+		//[Authorize(Roles = "ProjectManager,Client,Contractor")]
+		public async Task<IActionResult> UpdateMaterials([FromBody] ProjectsUpdateMaterialsRequest updateRequest)
+		{
+			try
+			{
+				List<ProjectMaterialDBModel> tasks = await _projectData.UpdateMaterials(updateRequest);
+
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success",
+					ProjectMaterials = tasks,
+
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
 
 		[HttpPost]
         [Route("Export")]

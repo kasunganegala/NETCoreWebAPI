@@ -135,6 +135,10 @@
     <Build Include="dbo\Udt\udtProjectTasksType.sql" />
     <Build Include="dbo\Udt\udtProjectLaboursType.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectLabours_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectEquipments_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectMaterials_Update.sql" />
+    <Build Include="dbo\Udt\udtProjectEquipmentsType.sql" />
+    <Build Include="dbo\Udt\udtProjectMaterialsType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

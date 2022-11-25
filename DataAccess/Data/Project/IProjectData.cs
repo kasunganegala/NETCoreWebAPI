@@ -17,7 +17,9 @@ namespace DataAccess.Data
         public Task<Grid<ProjectsSearchResponse>> GetProjectsExport(ProjectsSearchRequest searchRequest);
         public Task<List<ProjectTasksDBModel>?> UpdateTasks(ProjectsUpdateTasksRequest updateRequest);
         public Task<List<ProjectLabourDBModel>?> UpdateLabours(ProjectsUpdateLaboursRequest updateRequest);
+        public Task<List<ProjectEquipmentDBModel>?> UpdateEquipments(ProjectsUpdateEquipmentsRequest updateRequest);
+        public Task<List<ProjectMaterialDBModel>?> UpdateMaterials(ProjectsUpdateMaterialsRequest updateRequest);
+		
 
-
-    }
+	}
 }

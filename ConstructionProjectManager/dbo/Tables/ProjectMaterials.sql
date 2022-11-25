@@ -19,5 +19,7 @@
 	[CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 
     [LastModifiedDateTime] DATETIME NULL,
 
+	[IsDeleted] BIT NOT NULL DEFAULT 0,
+
 	CONSTRAINT [FK_ProjectMaterials_Project] FOREIGN KEY ([ProjectId]) REFERENCES [Projects]([Id])
 )
