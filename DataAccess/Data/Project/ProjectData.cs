@@ -200,12 +200,12 @@ namespace DataAccess.Data
             return projectGrid;
         }
 
-        public Task<int> ApproveProject(int id)
+        public Task<int> ProjectStart(int id)
         {
             var param = new DynamicParameters();
             param.Add("@Id", id);
 
-            return _db.SaveData<int, DynamicParameters>("dbo.spProjectApproveProject_Get", param);
+            return _db.SaveData<int, DynamicParameters>("dbo.spProjectStart_Get", param);
         }
         public Task<int> RejectProject(int id)
         {
@@ -213,6 +213,63 @@ namespace DataAccess.Data
             param.Add("@Id", id);
 
             return _db.SaveData<int, DynamicParameters>("dbo.spProjectRejectProject_Get", param);
+        }
+
+        public Task<int> TaskSetStatus(int pid, int tid, string status)
+        {
+            var param = new DynamicParameters();
+            param.Add("@ProjectId", pid);
+            param.Add("@TaskId", tid);
+            param.Add("@Status", status);
+
+            return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskSetStatus_Get", param);
+        }
+
+        public async Task<ProjectTaskResponse> ProjectTask(int projectId, int taskId)
+        {
+            var param = new DynamicParameters();
+            param.Add("@ProjectId", projectId);
+            param.Add("@TaskId", taskId);
+
+            var results = await _db.LoadData<ProjectTaskResponse, DynamicParameters>("dbo.spProjectTask_Get", param);
+
+            ProjectTaskResponse project = results.FirstOrDefault();
+
+            if (project != null)
+            {
+                project.Materials = await GetProjectTaskMaterials(projectId, taskId);
+                project.Labours = await GetProjectTaskLabours(projectId, taskId);
+                project.Equipments = await GetProjectTaskEquipments(projectId, taskId);
+            }
+
+            return project;
+        }
+
+        public async Task<List<ProjectTaskCostLineDBModel>?> GetProjectTaskMaterials(int projectId, int taskId)
+        {
+            var results = await _db.LoadData<ProjectTaskCostLineDBModel, dynamic>(
+                "dbo.spProjectTaskMaterials_Get",
+                new { ProjectId = projectId, TaskId = taskId });
+
+            return results.ToList();
+        }
+
+        public async Task<List<ProjectTaskCostLineDBModel>?> GetProjectTaskLabours(int projectId, int taskId)
+        {
+            var results = await _db.LoadData<ProjectTaskCostLineDBModel, dynamic>(
+               "dbo.spProjectTaskLabours_Get",
+               new { ProjectId = projectId, TaskId = taskId });
+
+            return results.ToList();
+        }
+
+        public async Task<List<ProjectTaskCostLineDBModel>?> GetProjectTaskEquipments(int projectId, int taskId)
+        {
+            var results = await _db.LoadData<ProjectTaskCostLineDBModel, dynamic>(
+                "dbo.spProjectTaskEquipments_Get",
+                new { ProjectId = projectId, TaskId = taskId });
+
+            return results.ToList();
         }
 
         private DataTable GenerateProjectTasksDataTable(List<ProjectTasksDBModel>? List)
@@ -248,7 +305,6 @@ namespace DataAccess.Data
 
             return dt;
         }
-
 		private DataTable GenerateProjectLaboursDataTable(List<ProjectLabourDBModel>? List)
 		{
 			DataTable dt = new DataTable();

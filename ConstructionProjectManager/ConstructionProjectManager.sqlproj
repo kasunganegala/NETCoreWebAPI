@@ -124,7 +124,6 @@
     <Build Include="dbo\StoredProcedures\Users\spUsers_Get.sql" />
     <Build Include="dbo\StoredProcedures\Users\spUsers_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProject_Get.sql" />
-    <Build Include="dbo\StoredProcedures\Project\spProjectApproveProject_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectEquipments_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectLabours_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectMaterials_Get.sql" />
@@ -139,6 +138,16 @@
     <Build Include="dbo\StoredProcedures\Project\spProjectMaterials_Update.sql" />
     <Build Include="dbo\Udt\udtProjectEquipmentsType.sql" />
     <Build Include="dbo\Udt\udtProjectMaterialsType.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectStart_Get.sql" />
+    <Build Include="dbo\Tables\ProjectTasksWorklogEquipments.sql" />
+    <Build Include="dbo\Tables\ProjectTasksWorklogMaterials.sql" />
+    <Build Include="dbo\Tables\ProjectTasksWorklogLabours.sql" />
+    <Build Include="dbo\Tables\ProjectTasksWorklogs.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTask_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskMaterials_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskEquipments_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskLabours_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskSetStatus_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

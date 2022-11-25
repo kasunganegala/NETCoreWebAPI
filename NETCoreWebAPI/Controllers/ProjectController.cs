@@ -56,42 +56,6 @@ namespace NETCoreWebAPI.Controllers
 
         }
 
-        //[HttpPost]
-        //[Route("create")]
-        //[Authorize(Roles = "Contractor")]
-        //public async Task<IActionResult> Create([FromBody] ProjectModel model)
-        //{
-        //    try
-        //    {
-        //        List<Error> Errors = ProjectValidation.NewProjectValidation(model);
-
-        //        if (Errors.Count > 0)
-        //        {
-        //            return Ok(new
-        //            {
-        //                Errors = Errors,
-        //                Status = "Validation Errors",
-        //                ProjectId = 0
-        //            });
-        //        }
-
-        //        ProjectDBModel project = ProjectBusinessRules.GenerateProjectModel(model);
-
-        //        int newProjectId = await _projectData.InsertNewProject(project);
-
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            ProjectId = newProjectId
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
-
         [HttpGet]
         [Route("{id}")]
         //[Authorize(Roles = "ProjectManager,Client,Contractor")]
@@ -263,59 +227,97 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("{id}/approve")]
-        //[Authorize(Roles = "ProjectManager")]
-        //public async Task<IActionResult> Approve(int id)
-        //{
-        //    try
-        //    {
-        //        int? projectId = await _projectData.ApproveProject(id);
+        [HttpGet]
+        [Route("{id}/start")]
+        [Authorize(Roles = "ProjectManager,Contractor")]
+        public async Task<IActionResult> ProjectStart(int id)
+        {
+            try
+            {
+                int? projectId = await _projectData.ProjectStart(id);
 
-        //        if (projectId == null)
-        //        {
-        //            return Ok(new
-        //            {
-        //                Errors = Array.Empty<Array>(),
-        //                Status = "Project Creation failed",
-        //                Project = projectId
-        //            });
-        //        }
+                if (projectId == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Cannot start project",
+                    });
+                }
 
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Project = projectId
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
-        //[HttpGet]
-        //[Route("close/{id}")]
-        //[Authorize(Roles = "ProjectManager")]
-        //public async Task<IActionResult> Close(int id)
-        //{
-        //    try
-        //    {
-        //        int tenderId = await _tenderData.SetTenderClose(id);
+        [HttpGet]
+        [Route("{pid}/task/{tid}")]
+       // [Authorize(Roles = "ProjectManager,Contractor")]
+        public async Task<IActionResult> ProjectTasks(int pid, int tid)
+        {
+            try
+            {
+                ProjectTaskResponse projectTask = await _projectData.ProjectTask(pid, tid);
 
-        //        return Ok(new
-        //        {
-        //            Errors = Array.Empty<Array>(),
-        //            Status = "Success",
-        //            Tender = tenderId
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+                if (projectTask == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Cannot find project task",
+                        ProjectTasks = new { }
+                    });
+                }
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    ProjectTasks = projectTask
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("{pid}/task/{tid}/status/{status}")]
+        [Authorize(Roles = "ProjectManager,Contractor")]
+        public async Task<IActionResult> TaskSetStatus(int pid, int tid, string status)
+        {
+            try
+            {
+                int? projectId = await _projectData.TaskSetStatus(pid, tid, status);
+
+                if (projectId == null)
+                {
+                    return Ok(new
+                    {
+                        Errors = Array.Empty<Array>(),
+                        Status = "Cannot set status",
+                    });
+                }
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
     }
 }
