@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DataAccess.Data
 {
@@ -96,7 +97,24 @@ namespace DataAccess.Data
             return null;
         }
 
-        public async Task<Grid<ProjectsSearchResponse>> GetProjects(ProjectsSearchRequest searchRequest)
+		public async Task<List<ProjectLabourDBModel>?> UpdateLabours(ProjectsUpdateLaboursRequest updateRequest)
+        {
+            DataTable dt = GenerateProjectLaboursDataTable(updateRequest.ProjectLabours);
+            
+            var param = new DynamicParameters();
+            param.Add("@ProjectLabours", dt, DbType.Object);
+            param.Add("@ProjectId", updateRequest.ProjectId);
+
+            var isProcessed =  _db.SaveData<bool, DynamicParameters>("dbo.spProjectLabours_Update", param);
+
+            if ((bool)isProcessed.Result) {
+                return await GetProjectLabours((int)updateRequest.ProjectId);
+            }
+
+            return null;
+        }
+
+		public async Task<Grid<ProjectsSearchResponse>> GetProjects(ProjectsSearchRequest searchRequest)
         {
             Grid<ProjectsSearchResponse> projectGrid = new Grid<ProjectsSearchResponse>();
 
@@ -194,5 +212,49 @@ namespace DataAccess.Data
 
             return dt;
         }
-    }
+
+		private DataTable GenerateProjectLaboursDataTable(List<ProjectLabourDBModel>? List)
+		{
+			DataTable dt = new DataTable();
+			dt.Columns.Add("Id");
+			dt.Columns.Add("ProjectId");
+			dt.Columns.Add("LabourId");
+			dt.Columns.Add("Name");
+			dt.Columns.Add("UOMId");
+			dt.Columns.Add("EstimatedUnitCost");
+			dt.Columns.Add("EstimatedQuantity");
+            dt.Columns.Add("EstimatedTotalCost");
+			dt.Columns.Add("UnitCost");
+			dt.Columns.Add("Quantity");
+            dt.Columns.Add("TotalCost");
+            dt.Columns.Add("Profit");
+			dt.Columns.Add("CreatedByUsername");
+            dt.Columns.Add("CreatedDateTime");
+			dt.Columns.Add("LastModifiedDateTime");
+			dt.Columns.Add("IsDeleted");
+
+			foreach (ProjectLabourDBModel item in List)
+			{
+				dt.Rows.Add(
+					item.Id,
+					item.ProjectId,
+					item.LabourId,
+					item.Name,
+					item.UOMId,
+					item.UnitCost,
+					item.Quantity,
+					item.TotalCost,
+					item.UnitCost,
+                    0,
+                    0,
+                    item.Profit,
+                    item.CreatedByUsername,
+					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+				    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    0);
+			}
+
+			return dt;
+		}
+	}
 }

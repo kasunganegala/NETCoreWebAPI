@@ -170,8 +170,31 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
+		[HttpPost]
+		[Route("update/labours")]
+		//[Authorize(Roles = "ProjectManager,Client,Contractor")]
+		public async Task<IActionResult> UpdateLabours([FromBody] ProjectsUpdateLaboursRequest updateRequest)
+		{
+			try
+			{
+				List<ProjectLabourDBModel> tasks = await _projectData.UpdateLabours(updateRequest);
 
-        [HttpPost]
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success",
+					ProjectLabours = tasks,
+
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+
+		[HttpPost]
         [Route("Export")]
         [Authorize(Roles = "ProjectManager,Client,Contractor")]
         public async Task<IActionResult> ProjectsExport([FromBody] ProjectsSearchRequest searchRequest)
