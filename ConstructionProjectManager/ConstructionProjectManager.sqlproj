@@ -148,6 +148,8 @@
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskEquipments_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskLabours_Get.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskSetStatus_Get.sql" />
+    <Build Include="dbo\Udt\udtProjectTaskMaterialUsageType.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskMaterialUsage_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

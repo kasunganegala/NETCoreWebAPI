@@ -272,6 +272,18 @@ namespace DataAccess.Data
             return results.ToList();
         }
 
+        public Task<int> SubmitMeterials(ProjectTaskMaterialUsageRequest searchRequest)
+        {
+            DataTable dt = GenerateProjectTaskMaterialsDataTable(searchRequest.Materials, (int)searchRequest.ProjectId, (int)searchRequest.TaskId);
+
+            var param = new DynamicParameters();
+            param.Add("@Materials", dt, DbType.Object);
+            param.Add("@ProjectId", searchRequest.ProjectId);
+            param.Add("@TaskId", searchRequest.TaskId);
+
+            return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskMaterialUsage_Insert", param);
+        }
+
         private DataTable GenerateProjectTasksDataTable(List<ProjectTasksDBModel>? List)
         {
             DataTable dt = new DataTable();
@@ -434,5 +446,32 @@ namespace DataAccess.Data
 
 			return dt;
 		}
-	}
+        private DataTable GenerateProjectTaskMaterialsDataTable(List<ProjectTaskMaterialUsageDBModel>? List, int projectId, int taskId)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("MaterialId");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Quantity");
+            dt.Columns.Add("UOM");
+            dt.Columns.Add("UOMId");
+            dt.Columns.Add("ProjectId");
+            dt.Columns.Add("TaskId");
+
+            foreach (ProjectTaskMaterialUsageDBModel item in List)
+            {
+                dt.Rows.Add(
+                    item.Id,
+                    item.MaterialId,
+                    item.Name,
+                    item.Quantity,
+                    item.UOM,
+                    item.UOMId,
+                    projectId,
+                    taskId);
+            }
+
+            return dt;
+        }
+    }
 }

@@ -319,5 +319,27 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("task/submit/materials")]
+        [Authorize(Roles = "ProjectManager,Client,Contractor")]
+        public async Task<IActionResult> SubmitMeterials([FromBody] ProjectTaskMaterialUsageRequest searchRequest)
+        {
+            try
+            {
+                var status = await _projectData.SubmitMeterials(searchRequest);
+
+                return Ok(new
+                {
+                    Errors = Array.Empty<Array>(),
+                    Status = "Success",
+                    Success = status
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
     }
 }

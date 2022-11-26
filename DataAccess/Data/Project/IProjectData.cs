@@ -22,6 +22,7 @@ namespace DataAccess.Data
         public Task<int> ProjectStart(int id);
         public Task<ProjectTaskResponse?> ProjectTask(int projectId, int taskId);
         public Task<int> TaskSetStatus(int pid, int tid, string status);
-        
+        public Task<int> SubmitMeterials(ProjectTaskMaterialUsageRequest searchRequest);
+
     }
 }
