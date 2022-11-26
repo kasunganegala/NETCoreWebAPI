@@ -150,6 +150,10 @@
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskSetStatus_Get.sql" />
     <Build Include="dbo\Udt\udtProjectTaskMaterialUsageType.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskMaterialUsage_Insert.sql" />
+    <Build Include="dbo\Udt\udtProjectTaskEquipmentUsageType.sql" />
+    <Build Include="dbo\Udt\udtProjectTaskLabourUsageType.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskEquipmentUsage_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskLabourUsage_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

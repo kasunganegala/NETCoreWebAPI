@@ -2,6 +2,28 @@
 	@Id INT
 AS
 BEGIN
+    
+   DECLARE @eqCost decimal(18,2)= 0
+   DECLARE @maCost decimal(18,2)= 0
+   DECLARE @laCost decimal(18,2)= 0
+
+    SELECT @eqCost = SUM(UnitCost * Quantity) 
+    FROM [ProjectTasksWorklogEquipments]
+    WHERE ProjectId = @Id
+	group by ProjectId
+
+     SELECT @maCost = SUM(UnitCost * Quantity) 
+    FROM [ProjectTasksWorklogMaterials]
+    WHERE ProjectId = @Id
+	group by ProjectId
+
+     SELECT @laCost = SUM(UnitCost * Quantity) 
+    FROM [ProjectTasksWorklogLabours]
+    WHERE ProjectId = @Id
+	group by ProjectId
+
+
+
 	SELECT 
 	   p.[Id]
       ,p.[BidId]
@@ -22,11 +44,11 @@ BEGIN
       ,p.[EstimatedTax]
       ,p.[EstimatedCostTotal]
 
-      ,p.[MaterialCostTotal]
-      ,p.[EquipmentCostTotal]
-      ,p.[LabourCostTotal]
+      ,@maCost AS [MaterialCostTotal]
+      ,@eqCost AS [EquipmentCostTotal]
+      ,@laCost AS [LabourCostTotal]
       ,p.[Tax]
-      ,p.[CostTotal]
+      ,(@maCost + @eqCost + @laCost) AS [CostTotal]
 
       ,p.[MaterialsProfit]
       ,p.[EquipmentsProfit]

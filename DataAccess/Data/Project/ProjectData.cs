@@ -284,7 +284,31 @@ namespace DataAccess.Data
             return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskMaterialUsage_Insert", param);
         }
 
-        private DataTable GenerateProjectTasksDataTable(List<ProjectTasksDBModel>? List)
+		public Task<int> SubmitEquipments(ProjectTaskEquipmentUsageRequest searchRequest)
+		{
+			DataTable dt = GenerateProjectTaskEquipmentsDataTable(searchRequest.Equipments, (int)searchRequest.ProjectId, (int)searchRequest.TaskId);;
+
+			var param = new DynamicParameters();
+			param.Add("@Equipments", dt, DbType.Object);
+			param.Add("@ProjectId", searchRequest.ProjectId);
+			param.Add("@TaskId", searchRequest.TaskId);
+
+			return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskEquipmentUsage_Insert", param);
+		}
+
+		public Task<int> SubmitLabours(ProjectTaskLabourUsageRequest searchRequest)
+		{
+            DataTable dt = GenerateProjectTaskLaboursDataTable(searchRequest.Labours, (int)searchRequest.ProjectId, (int)searchRequest.TaskId);
+
+			var param = new DynamicParameters();
+			param.Add("@Labours", dt, DbType.Object);
+			param.Add("@ProjectId", searchRequest.ProjectId);
+			param.Add("@TaskId", searchRequest.TaskId);
+
+			return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskLabourUsage_Insert", param);
+		}
+
+		private DataTable GenerateProjectTasksDataTable(List<ProjectTasksDBModel>? List)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Id");
@@ -463,6 +487,60 @@ namespace DataAccess.Data
                 dt.Rows.Add(
                     item.Id,
                     item.MaterialId,
+                    item.Name,
+                    item.Quantity,
+                    item.UOM,
+                    item.UOMId,
+                    projectId,
+                    taskId);
+            }
+
+            return dt;
+        }
+        private DataTable GenerateProjectTaskEquipmentsDataTable(List<ProjectTaskEquipmentUsageDBModel>? List, int projectId, int taskId)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("EquipmentId");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Quantity");
+            dt.Columns.Add("UOM");
+            dt.Columns.Add("UOMId");
+            dt.Columns.Add("ProjectId");
+            dt.Columns.Add("TaskId");
+
+            foreach (ProjectTaskEquipmentUsageDBModel item in List)
+            {
+                dt.Rows.Add(
+                    item.Id,
+                    item.EquipmentId,
+                    item.Name,
+                    item.Quantity,
+                    item.UOM,
+                    item.UOMId,
+                    projectId,
+                    taskId);
+            }
+
+            return dt;
+        }
+        private DataTable GenerateProjectTaskLaboursDataTable(List<ProjectTaskLabourUsageDBModel>? List, int projectId, int taskId)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("LabourId");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Quantity");
+            dt.Columns.Add("UOM");
+            dt.Columns.Add("UOMId");
+            dt.Columns.Add("ProjectId");
+            dt.Columns.Add("TaskId");
+
+            foreach (ProjectTaskLabourUsageDBModel item in List)
+            {
+                dt.Rows.Add(
+                    item.Id,
+                    item.LabourId,
                     item.Name,
                     item.Quantity,
                     item.UOM,

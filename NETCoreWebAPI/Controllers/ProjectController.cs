@@ -341,5 +341,49 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-    }
+		[HttpPost]
+		[Route("task/submit/equipments")]
+		[Authorize(Roles = "ProjectManager,Client,Contractor")]
+		public async Task<IActionResult> SubmitEquipments([FromBody] ProjectTaskEquipmentUsageRequest searchRequest)
+		{
+			try
+			{
+				var status = await _projectData.SubmitEquipments(searchRequest);
+
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success",
+					Success = status
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+		[HttpPost]
+		[Route("task/submit/labours")]
+		[Authorize(Roles = "ProjectManager,Client,Contractor")]
+		public async Task<IActionResult> SubmitLabours([FromBody] ProjectTaskLabourUsageRequest searchRequest)
+		{
+			try
+			{
+				var status = await _projectData.SubmitLabours(searchRequest);
+
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success",
+					Success = status
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+	}
 }
