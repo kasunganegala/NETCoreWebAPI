@@ -18,6 +18,7 @@ namespace DataAccess.Models.Tender
         public int? CustomerId { get; set; }
         public string? Status { get; set; }
         public int? ProjectType { get; set; }
+        public int? ProjectBudget { get; set; }
         public string? Comment { get; set; }
         public List<TenderTasksDBModel>? Tasks { get; set; }
         public string? CreatedByUsername { get; set; }

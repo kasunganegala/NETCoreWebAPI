@@ -14,6 +14,7 @@ namespace DataAccess.Models.Tender
         public int? Customer { get; set; }
         public int? TenderType { get; set; }
         public int? ProjectType { get; set; }
+        public string? Status { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string? UserRole { get; set; }

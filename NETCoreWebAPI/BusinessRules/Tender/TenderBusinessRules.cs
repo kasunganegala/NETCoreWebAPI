@@ -20,6 +20,7 @@ namespace NETCoreWebAPI.BusinessRules.Tender
                 CustomerId = request.CustomerId,
                 Status = TenderStatus.Open,
                 ProjectType = request.ProjectType,
+                ProjectBudget = request.ProjectBudget,
                 Comment = request.Comment,
                 CreatedByUsername = request.CreatedByUsername,
                 CreatedDateTime = System.DateTime.Now,

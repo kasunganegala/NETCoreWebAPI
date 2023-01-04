@@ -59,6 +59,7 @@ namespace DataAccess.Data
             param.Add("@CustomerId", tender.CustomerId);
             param.Add("@Status", tender.Status);
             param.Add("@ProjectType", tender.ProjectType);
+            param.Add("@ProjectBudget", tender.ProjectBudget);
             param.Add("@Comment", tender.Comment);
             param.Add("@CreatedByUsername", tender.CreatedByUsername);
             param.Add("@CreatedDateTime", tender.CreatedDateTime);
@@ -111,6 +112,7 @@ namespace DataAccess.Data
             param.Add("@StartDate", searchRequest.StartDate);
             param.Add("@EndDate", searchRequest.EndDate);
             param.Add("@UserRole", searchRequest.UserRole);
+            param.Add("@Status", searchRequest.Status);
             param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             var results = await _db.LoadData<TenderSearchResponse, dynamic>("dbo.spTenders_Get", param);

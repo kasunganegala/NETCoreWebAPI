@@ -9,6 +9,7 @@
 	[CustomerId] INT NOT NULL,
 	[Status] NVARCHAR(20) DEFAULT 'Open' NOT NULL, 
 	[ProjectType] INT NOT NULL ,
+	[ProjectBudget] INT NULL ,
 	[Comment] NVARCHAR(500) NULL DEFAULT '', 
 	[CreatedByUsername] NVARCHAR(20) NULL,
 	[CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 

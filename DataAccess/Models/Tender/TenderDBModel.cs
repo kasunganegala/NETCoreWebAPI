@@ -19,6 +19,7 @@ namespace DataAccess.Models
         public int? BidsCount { get; set; }
         public string? Status { get; set; }
         public int? ProjectType { get; set; }
+        public int? ProjectBudget { get; set; }
         public string? Comment { get; set; }
         public string? CreatedByUsername { get; set; }
         public DateTime? CreatedDateTime { get; set; }

@@ -8,6 +8,7 @@
 	@CustomerId INT,
 	@Status NVARCHAR(4),
 	@ProjectType INT,
+	@ProjectBudget INT,
 	@Comment NVARCHAR(500),
 	@CreatedByUsername NVARCHAR(20),
 	@CreatedDateTime DATETIME,
@@ -27,6 +28,7 @@ BEGIN TRY
 			,[CustomerId]
 			,[Status] 
 			,[ProjectType]
+			,[ProjectBudget]
 			,[Comment]
 			,[CreatedByUsername])
 		VALUES(
@@ -38,6 +40,7 @@ BEGIN TRY
 			,@CustomerId
 			,@Status 
 			,@ProjectType 
+			,@ProjectBudget
 			,@Comment 
 			,@CreatedByUsername)
 
