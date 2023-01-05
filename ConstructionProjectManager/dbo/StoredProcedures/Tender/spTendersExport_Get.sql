@@ -7,9 +7,15 @@
 	,@StartDate				DATETIME = NULL
 	,@EndDate				DATETIME = NULL
 	,@UserRole				VARCHAR(MAX)
+	,@Status				VARCHAR(MAX)
 )
 AS
 BEGIN
+
+	IF @Status = ''
+	BEGIN
+		SET @Status = 'All'
+	END
 
 	SET @NoOfRecords = (SELECT COUNT(u.Id) 
 	FROM dbo.[Tenders] u
@@ -17,8 +23,11 @@ BEGIN
 	WHERE ((u.CustomerId = @Customer AND @Customer != 0) OR @Customer = 0)
 		AND ((u.TenderType = @TenderType AND @TenderType != 0) OR @TenderType = 0)
 		AND ((u.ProjectType = @ProjectType AND @ProjectType != 0) OR @ProjectType = 0)
-		AND ((u.StartDateTime = @StartDate AND @StartDate != NULL) OR @StartDate IS NULL)
-		AND ((u.EndDateTime = @EndDate AND @EndDate != NULL) OR @EndDate IS NULL)
+		AND ((CAST(u.StartDateTime AS DATE) = CAST(@StartDate AS DATE) AND @StartDate IS NOT NULL) OR @StartDate IS NULL)
+		AND ((CAST(u.EndDateTime AS DATE) = CAST(@EndDate AS DATE) AND @EndDate IS NOT NULL) OR @EndDate IS NULL)
+		AND ((@Status = 'All') 
+			OR (u.Status = @Status AND @Status != 'Not Started') 
+			OR (CAST(GETUTCDATE() AS DATE) < CAST(u.StartDateTime AS DATE) AND @Status = 'Not Started'))
 		)
 
 	SELECT 
@@ -41,7 +50,11 @@ BEGIN
 	WHERE ((u.CustomerId = @Customer AND @Customer != 0) OR @Customer = 0)
 		AND ((u.TenderType = @TenderType AND @TenderType != 0) OR @TenderType = 0)
 		AND ((u.ProjectType = @ProjectType AND @ProjectType != 0) OR @ProjectType = 0)
-		AND ((u.StartDateTime = @StartDate AND @StartDate != NULL) OR @StartDate IS NULL)
-		AND ((u.EndDateTime = @EndDate AND @EndDate != NULL) OR @EndDate IS NULL)
+		AND ((CAST(u.StartDateTime AS DATE) = CAST(@StartDate AS DATE) AND @StartDate IS NOT NULL) OR @StartDate IS NULL)
+		AND ((CAST(u.EndDateTime AS DATE) = CAST(@EndDate AS DATE) AND @EndDate IS NOT NULL) OR @EndDate IS NULL)
+		AND ((@Status = 'All') 
+				OR (u.Status = @Status AND @Status != 'Not Started') 
+				OR (CAST(GETUTCDATE() AS DATE) < CAST(u.StartDateTime AS DATE) AND @Status = 'Not Started'))
+
 	ORDER BY u.Id ASC
 END

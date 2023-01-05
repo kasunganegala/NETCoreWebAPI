@@ -134,6 +134,7 @@ namespace DataAccess.Data
             param.Add("@StartDate", searchRequest.StartDate);
             param.Add("@EndDate", searchRequest.EndDate);
             param.Add("@UserRole", searchRequest.UserRole);
+            param.Add("@Status", searchRequest.Status);
             param.Add("@NoOfRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             var results = await _db.LoadData<TenderSearchResponse, dynamic>("dbo.spTendersExport_Get", param);
