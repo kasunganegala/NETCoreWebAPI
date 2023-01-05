@@ -280,7 +280,9 @@ namespace DataAccess.Data
 
             var param = new DynamicParameters();
             param.Add("@Customer", searchRequest.Customer);
-            param.Add("@TenderType", searchRequest.TenderType);
+			param.Add("@Limit", 999);
+			param.Add("@Offset", 0);
+			param.Add("@TenderType", searchRequest.TenderType);
             param.Add("@ProjectType", searchRequest.ProjectType);
             param.Add("@StartDate", searchRequest.StartDate);
             param.Add("@EndDate", searchRequest.EndDate);
