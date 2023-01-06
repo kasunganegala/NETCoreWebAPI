@@ -25,6 +25,7 @@ namespace DataAccess.Data
         public Task<int> SubmitMeterials(ProjectTaskMaterialUsageRequest searchRequest);
         public Task<int> SubmitEquipments(ProjectTaskEquipmentUsageRequest searchRequest);
         public Task<int> SubmitLabours(ProjectTaskLabourUsageRequest searchRequest);
+        public Task<int> SubmitWorklog(ProjectTaskWorklogRequest request);
 
-    }
+	}
 }

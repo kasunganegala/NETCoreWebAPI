@@ -308,6 +308,24 @@ namespace DataAccess.Data
 			return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskLabourUsage_Insert", param);
 		}
 
+		public Task<int> SubmitWorklog(ProjectTaskWorklogRequest request)
+		{
+			DataTable laborlog = GenerateProjectTaskLaboursDataTable(request.Labours, (int)request.ProjectId, (int)request.TaskId);
+			DataTable equipmentlog = GenerateProjectTaskEquipmentsDataTable(request.Equipments, (int)request.ProjectId, (int)request.TaskId); ;
+			DataTable materiallog = GenerateProjectTaskMaterialsDataTable(request.Materials, (int)request.ProjectId, (int)request.TaskId);
+
+			var param = new DynamicParameters();
+            param.Add("@Materials", materiallog, DbType.Object);
+			param.Add("@Equipments", equipmentlog, DbType.Object);
+			param.Add("@Labours", laborlog, DbType.Object);
+			param.Add("@ProjectId", request.ProjectId);
+			param.Add("@TaskId", request.TaskId);
+			param.Add("@LogDate", request.LogDate);
+			param.Add("@Comment", request.Comment);
+
+			return _db.SaveData<int, DynamicParameters>("dbo.spProjectTaskWorklog_Insert", param);
+		}
+
 		private DataTable GenerateProjectTasksDataTable(List<ProjectTasksDBModel>? List)
         {
             DataTable dt = new DataTable();

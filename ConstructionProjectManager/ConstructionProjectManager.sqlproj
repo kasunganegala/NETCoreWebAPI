@@ -154,6 +154,7 @@
     <Build Include="dbo\Udt\udtProjectTaskLabourUsageType.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskEquipmentUsage_Insert.sql" />
     <Build Include="dbo\StoredProcedures\Project\spProjectTaskLabourUsage_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Project\spProjectTaskWorklog_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConstructionProjectManager.publish.xml" />

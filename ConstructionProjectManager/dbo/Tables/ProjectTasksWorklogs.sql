@@ -4,10 +4,13 @@
 	[ProjectId] INT NOT NULL,
 	[TaskId] INT NOT NULL,
 
-	[MaterialCost] DECIMAL(18, 2) NOT NULL, 
-	[LabourCost] DECIMAL(18, 2) NOT NULL, 
-	[EquipmentCost] DECIMAL(18, 2) NOT NULL, 
-	[TotalCost] DECIMAL(18, 2) NOT NULL, 
+	[LogDate] DATETIME NOT NULL DEFAULT GETUTCDATE(), 
+	[Comment] NVARCHAR(MAX) NOT NULL DEFAULT '',
+	
+	[MaterialCost] DECIMAL(18, 2) NOT NULL DEFAULT 0, 
+	[LabourCost] DECIMAL(18, 2) NOT NULL DEFAULT 0, 
+	[EquipmentCost] DECIMAL(18, 2) NOT NULL DEFAULT 0, 
+	[TotalCost] DECIMAL(18, 2) NOT NULL DEFAULT 0, 
 
 	[CreatedByUsername] NVARCHAR(20) NULL,
 	[CreatedDateTime] DATETIME NOT NULL DEFAULT GETUTCDATE(), 

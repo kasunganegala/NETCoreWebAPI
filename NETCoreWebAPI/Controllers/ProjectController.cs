@@ -385,5 +385,29 @@ namespace NETCoreWebAPI.Controllers
 			}
 		}
 
+
+		[HttpPost]
+		[Route("task/submit/worklog")]
+		[Authorize(Roles = "ProjectManager,Client,Contractor")]
+		public async Task<IActionResult> SubmitWorklog([FromBody] ProjectTaskWorklogRequest request)
+		{
+			try
+			{
+				var status = await _projectData.SubmitWorklog(request);
+
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success",
+					Success = status
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+
 	}
 }

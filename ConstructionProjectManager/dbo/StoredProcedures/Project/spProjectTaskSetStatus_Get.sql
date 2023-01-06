@@ -7,7 +7,9 @@ BEGIN
 	UPDATE dbo.[ProjectTasks]
 		SET Status = @Status
 			,ActualStartDateTime = IIF(ActualStartDateTime IS NULL AND @Status = 'Started', GETUTCDATE(),ActualStartDateTime)
-			,ActualEndDateTime = IIF(ActualEndDateTime IS NULL AND @Status = 'Completed', GETUTCDATE(),ActualEndDateTime)
+			,ActualEndDateTime = IIF(ActualEndDateTime IS NULL AND @Status = 'Completed', 
+				GETUTCDATE(),
+				IIF(ActualEndDateTime IS NOT NULL AND @Status = 'Started', NULL, ActualEndDateTime))
 	WHERE ProjectId = @ProjectId 
 		AND Id = @TaskId
         AND IsDeleted = 0
