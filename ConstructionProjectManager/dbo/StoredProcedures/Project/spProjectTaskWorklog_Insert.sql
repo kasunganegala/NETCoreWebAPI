@@ -3,6 +3,7 @@
 	,@TaskId INT
 	,@LogDate DATETIME
 	,@Comment NVARCHAR(MAX)
+    ,@Effort INT
 	,@Equipments udtProjectTaskEquipmentUsageType READONLY
 	,@Materials udtProjectTaskMaterialUsageType READONLY
 	,@Labours udtProjectTaskLabourUsageType READONLY
@@ -20,7 +21,8 @@ BEGIN
       ,[TaskId]
 	  ,[LogDate] 
 	  ,[Comment] 
-    ) VALUES (@ProjectId, @TaskId, @LogDate, @Comment)
+      ,[Effort]
+    ) VALUES (@ProjectId, @TaskId, @LogDate, @Comment, @Effort)
     DECLARE @ProjectTasksWorklogsId AS INT = SCOPE_IDENTITY();
 
 	INSERT INTO ProjectTasksWorklogEquipments

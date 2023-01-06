@@ -29,6 +29,7 @@ namespace DataAccess.Models.Project
         public List<ProjectTaskCostLineDBModel>? Materials { get; set; }
         public List<ProjectTaskCostLineDBModel>? Labours { get; set; }
         public List<ProjectTaskCostLineDBModel>? Equipments { get; set; }
+        public List<dynamic>? WorkLogs { get; set; }
 
-    }
+	}
 }

@@ -11,7 +11,9 @@ namespace DataAccess.Models.Project
 	{
         public int? ProjectId { get; set; }
         public int? TaskId { get; set; }
-        public DateTime? LogDate { get; set; }
+        public int? Effort { get; set; }
+		
+		public DateTime? LogDate { get; set; }
         public string? Comment { get; set; }
 		public List<ProjectTaskLabourUsageDBModel>? Labours { get; set; }
 		public List<ProjectTaskEquipmentUsageDBModel>? Equipments { get; set; }

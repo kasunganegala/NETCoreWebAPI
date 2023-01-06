@@ -64,6 +64,7 @@ namespace NETCoreWebAPI.Controllers
             try
             {
                 ProjectDBModel project = await _projectData.GetProject(id);
+                //dynamic projectProgress = await _projectData.GetProjectProgress(id);
 
                 if (project == null)
                 {
@@ -257,7 +258,39 @@ namespace NETCoreWebAPI.Controllers
             }
         }
 
-        [HttpGet]
+		[HttpGet]
+		[Route("{id}/complete")]
+		[Authorize(Roles = "ProjectManager,Contractor")]
+		public async Task<IActionResult> ProjectComplete(int id)
+		{
+			try
+			{
+				int? projectId = await _projectData.ProjectComplete(id);
+
+				if (projectId == null)
+				{
+					return Ok(new
+					{
+						Errors = Array.Empty<Array>(),
+						Status = "Cannot start project",
+					});
+				}
+
+				return Ok(new
+				{
+					Errors = Array.Empty<Array>(),
+					Status = "Success"
+				});
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+
+
+		[HttpGet]
         [Route("{pid}/task/{tid}")]
        // [Authorize(Roles = "ProjectManager,Contractor")]
         public async Task<IActionResult> ProjectTasks(int pid, int tid)
